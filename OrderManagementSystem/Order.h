@@ -1,5 +1,3 @@
-
-
 #include <iostream>
 class Order {
 public:
@@ -21,10 +19,10 @@ public:
 	}
 };
 
-class Creator
+class Factory
 {
 public:
-	virtual ~Creator() {};
+	virtual ~Factory() {};
 	virtual Order* FactoryMethod() const = 0;
 
 	void SomeOperation() const { // просто метод обработки заказа, то есть инкапсулируем наш объект и его методы
@@ -35,14 +33,14 @@ public:
 };
 
 
-class DigitalFactory : public Creator {
+class DigitalFactory : public Factory {
 public:
 	Order* FactoryMethod() const override {
 		return new DigitalOrder();
 	}
 };
 
-class PhysicalFactory : public Creator {
+class PhysicalFactory : public Factory {
 public:
 	Order* FactoryMethod() const override {
 		return new PhysicalOrder();
