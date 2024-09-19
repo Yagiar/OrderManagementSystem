@@ -7,22 +7,22 @@ class Order {
 public:
     virtual ~Order() {}
     // Чисто виртуальный метод для обработки заказа
-    virtual void processOrder() = 0;
+    virtual std::string processOrder() = 0;
 };
 
 class PhysicalOrder : public Order {
 public:
     // Переопределение метода обработки физического заказа
-    void processOrder() override {
-        std::cout << "Processing physical order..." << std::endl;
+    std::string processOrder() override {
+        return "Processing physical order...";
     }
 };
 
 class DigitalOrder : public Order {
 public:
     // Переопределение метода обработки цифрового заказа
-    void processOrder() override {
-        std::cout << "Processing digital order..." << std::endl;
+    std::string processOrder() override {
+        return "Processing Digital order...";
     }
 };
 
@@ -32,23 +32,25 @@ public:
     virtual ~Factory() {};
 
     // Чисто виртуальный метод фабричного создания
-    virtual Order* FactoryMethod() const = 0;
+    virtual Order* FactoryMethod() = 0;
 
     // Метод для выполнения операции с заказом
-    void SomeOperation() const {
+    std::string SomeOperation() {
         // Используем фабричный метод для создания заказа
         Order* order = this->FactoryMethod();
         // Обрабатываем заказ
-        order->processOrder();
+        std::string msg = order->processOrder();
         // Удаляем заказ, чтобы избежать утечек памяти
         delete order;
+
+        return msg;
     }
 };
 
 // Конкретная фабрика для создания цифровых заказов
 class DigitalFactory : public Factory {
 public:
-    Order* FactoryMethod() const override {
+    Order* FactoryMethod() override {
         return new DigitalOrder();
     }
 };
@@ -56,7 +58,7 @@ public:
 // Конкретная фабрика для создания физических заказов
 class PhysicalFactory : public Factory {
 public:
-    Order* FactoryMethod() const override {
+    Order* FactoryMethod() override {
         return new PhysicalOrder();
     }
 };
