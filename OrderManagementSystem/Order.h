@@ -1,6 +1,7 @@
 #include <iostream>
 class Order {
 public:
+
 	virtual ~Order() {}
 	virtual void processOrder() = 0;
 };
