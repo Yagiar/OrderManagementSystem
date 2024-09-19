@@ -11,61 +11,28 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QStatusBar>
-#include <QtWidgets/QWidget>
+#include <QtWidgets/QDialog>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_MainWindow
 {
 public:
-    QWidget *centralwidget;
-    QPushButton *ButProcessOrder;
-    QLabel *labelPhOrder;
-    QLabel *labelDigOrder;
-    QMenuBar *menubar;
-    QStatusBar *statusbar;
 
-    void setupUi(QMainWindow *MainWindow)
+    void setupUi(QDialog *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(732, 600);
-        centralwidget = new QWidget(MainWindow);
-        centralwidget->setObjectName("centralwidget");
-        ButProcessOrder = new QPushButton(centralwidget);
-        ButProcessOrder->setObjectName("ButProcessOrder");
-        ButProcessOrder->setGeometry(QRect(260, 130, 121, 29));
-        labelPhOrder = new QLabel(centralwidget);
-        labelPhOrder->setObjectName("labelPhOrder");
-        labelPhOrder->setGeometry(QRect(200, 190, 311, 20));
-        labelDigOrder = new QLabel(centralwidget);
-        labelDigOrder->setObjectName("labelDigOrder");
-        labelDigOrder->setGeometry(QRect(200, 220, 291, 20));
-        MainWindow->setCentralWidget(centralwidget);
-        menubar = new QMenuBar(MainWindow);
-        menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 732, 26));
-        MainWindow->setMenuBar(menubar);
-        statusbar = new QStatusBar(MainWindow);
-        statusbar->setObjectName("statusbar");
-        MainWindow->setStatusBar(statusbar);
+        MainWindow->resize(581, 499);
 
         retranslateUi(MainWindow);
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
 
-    void retranslateUi(QMainWindow *MainWindow)
+    void retranslateUi(QDialog *MainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        ButProcessOrder->setText(QCoreApplication::translate("MainWindow", "Process Order", nullptr));
-        labelPhOrder->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
-        labelDigOrder->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Dialog", nullptr));
     } // retranslateUi
 
 };

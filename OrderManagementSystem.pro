@@ -14,6 +14,7 @@ SOURCES += \
     mainwindow.cpp \
     order.cpp \
     orderstate.cpp \
+    startWindow.cpp \
     user.cpp
 
 HEADERS += \
@@ -21,10 +22,12 @@ HEADERS += \
     mainwindow.h \
     order.h \
     orderstate.h \
+    startWindow.h \
     user.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    startWindow.ui
 
 TRANSLATIONS += \
     OrderManagementSystem_ru_RU.ts
