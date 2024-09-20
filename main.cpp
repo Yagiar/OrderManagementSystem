@@ -8,6 +8,7 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    QCoreApplication::addLibraryPath("C:/Qt/6.7.2/mingw_64/plugins/sqldrivers");
 
     startWindow w;
     w.show();

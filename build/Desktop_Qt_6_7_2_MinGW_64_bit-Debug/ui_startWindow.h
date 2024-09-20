@@ -25,13 +25,14 @@ class Ui_startWindow
 {
 public:
     QWidget *centralwidget;
-    QPushButton *ButProcessOrder;
     QLabel *labelUsername;
     QLabel *labelPassword;
     QLabel *labelEmail;
     QLineEdit *tbUsername;
     QLineEdit *tbPassword;
     QLineEdit *tbEmail;
+    QPushButton *butLogin;
+    QPushButton *butRegistation;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -42,9 +43,6 @@ public:
         startWindow->resize(732, 600);
         centralwidget = new QWidget(startWindow);
         centralwidget->setObjectName("centralwidget");
-        ButProcessOrder = new QPushButton(centralwidget);
-        ButProcessOrder->setObjectName("ButProcessOrder");
-        ButProcessOrder->setGeometry(QRect(30, 180, 121, 29));
         labelUsername = new QLabel(centralwidget);
         labelUsername->setObjectName("labelUsername");
         labelUsername->setGeometry(QRect(260, 160, 141, 20));
@@ -63,6 +61,12 @@ public:
         tbEmail = new QLineEdit(centralwidget);
         tbEmail->setObjectName("tbEmail");
         tbEmail->setGeometry(QRect(190, 330, 281, 26));
+        butLogin = new QPushButton(centralwidget);
+        butLogin->setObjectName("butLogin");
+        butLogin->setGeometry(QRect(250, 370, 161, 29));
+        butRegistation = new QPushButton(centralwidget);
+        butRegistation->setObjectName("butRegistation");
+        butRegistation->setGeometry(QRect(250, 400, 161, 29));
         startWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(startWindow);
         menubar->setObjectName("menubar");
@@ -80,10 +84,11 @@ public:
     void retranslateUi(QMainWindow *startWindow)
     {
         startWindow->setWindowTitle(QCoreApplication::translate("startWindow", "MainWindow", nullptr));
-        ButProcessOrder->setText(QCoreApplication::translate("startWindow", "Process Order", nullptr));
         labelUsername->setText(QCoreApplication::translate("startWindow", "\320\230\320\274\321\217 \320\277\320\276\320\273\321\214\320\267\320\276\320\262\320\260\321\202\320\265\320\273\321\217", nullptr));
         labelPassword->setText(QCoreApplication::translate("startWindow", "\320\237\320\260\321\200\320\276\320\273\321\214", nullptr));
         labelEmail->setText(QCoreApplication::translate("startWindow", "\320\237\320\276\321\207\321\202\320\260", nullptr));
+        butLogin->setText(QCoreApplication::translate("startWindow", "\320\222\320\276\320\271\321\202\320\270", nullptr));
+        butRegistation->setText(QCoreApplication::translate("startWindow", "\320\227\320\260\321\200\320\265\320\263\320\270\321\201\321\202\321\200\320\270\321\200\320\276\320\262\320\260\321\202\321\214\321\201\321\217", nullptr));
     } // retranslateUi
 
 };

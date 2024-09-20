@@ -18,7 +18,10 @@ public:
     ~startWindow();
 
 private slots:
-    void on_ButProcessOrder_clicked();
+    void on_butLogin_clicked();
+
+
+    void on_butRegistation_clicked();
 
 private:
     Ui::startWindow *ui;
