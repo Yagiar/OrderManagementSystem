@@ -1,0 +1,11 @@
+debug/database.o
+debug/factory.o
+debug/main.o
+debug/mainwindow.o
+debug/order.o
+debug/orderstate.o
+debug/startWindow.o
+debug/user.o
+debug/qrc_qmake_qmake_qm_files.o
+debug/moc_mainwindow.o
+debug/moc_startWindow.o
