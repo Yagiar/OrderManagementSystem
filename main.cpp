@@ -15,3 +15,4 @@ int main(int argc, char *argv[])
 
     return app.exec();
 }
+//D:\OrderManagementSystem\build\Desktop_Qt_6_7_2_MinGW_64_bit-Debug\.qtc_clangd\.cache\clangd\index

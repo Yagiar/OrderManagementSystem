@@ -22,6 +22,7 @@ public:
             qDebug() << "Error: Unable to open database" << db.lastError().text();
             return false;
         }
+        qDebug() << "Connection is open!";
         return true;
     }
 
