@@ -1,0 +1,31 @@
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,     -- Уникальный идентификатор пользователя
+    username VARCHAR(50) UNIQUE NOT NULL, -- Уникальное имя пользователя
+    password_hash TEXT NOT NULL,    -- Хэш пароля (например, для использования bcrypt)
+    email VARCHAR(100) UNIQUE,      -- Уникальный email
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Дата регистрации пользователя
+);
+CREATE TABLE orders (
+    order_id SERIAL PRIMARY KEY,    -- Уникальный идентификатор заказа
+    user_id INT NOT NULL,           -- Внешний ключ на пользователя
+    order_description TEXT,         -- Описание заказа
+    order_type VARCHAR(50) NOT NULL, -- Тип заказа (физический, цифровой)
+    state_id INT NOT NULL,          -- Внешний ключ на состояние заказа
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Дата создания заказа
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Дата последнего изменения
+    FOREIGN KEY (user_id) REFERENCES users(user_id), -- Связь с таблицей пользователей
+    FOREIGN KEY (state_id) REFERENCES order_states(state_id) -- Связь с состоянием заказа
+);
+CREATE TABLE order_states (
+    state_id SERIAL PRIMARY KEY,    -- Уникальный идентификатор состояния
+    state_name VARCHAR(50) NOT NULL -- Название состояния (например, "Новый", "Завершён")
+);
+CREATE TABLE payments (
+    payment_id SERIAL PRIMARY KEY,  -- Уникальный идентификатор платежа
+    order_id INT NOT NULL,          -- Внешний ключ на заказ
+    payment_system VARCHAR(50),     -- Система оплаты (например, "Сбер.Pay", "Яндекс.Pay")
+    amount DECIMAL(10, 2) NOT NULL, -- Сумма платежа
+    status VARCHAR(50) NOT NULL,    -- Статус платежа (например, "Успешно", "Отклонено")
+    paid_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Дата проведения платежа
+    FOREIGN KEY (order_id) REFERENCES orders(order_id) -- Связь с таблицей заказов
+);
