@@ -1,14 +1,16 @@
 #include "startWindow.h"
 #include "ui_startWindow.h"
-#include "factory.h"
 #include <QTextEdit>
 #include <QKeyEvent>
 #include <QVBoxLayout>
-#include <database.h>
 #include <QCryptographicHash>
 #include <QString>
+#include <QMessageBox>
+#include <database.h>
+#include "mainwindow.h"
 
-QString hashPassword(const QString& password) {
+
+static QString hashPassword(const QString& password) {
     QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256);
     return hash.toHex(); // Преобразуем хэш в шестнадцатеричное представление
 }
@@ -35,9 +37,11 @@ void startWindow::on_butLogin_clicked()
         if(!ui->tbUsername->text().isEmpty() && !ui->tbPassword->text().isEmpty())
         {
             if (db.loginUser(ui->tbUsername->text(), hashPassword(ui->tbPassword->text()))){
-
+                this->close();
+                MainWindow * mForm = new MainWindow();
+                mForm->show();
             } else {
-
+                QMessageBox::warning(nullptr, "Error", "Заполните все поля.");
             }
         } else {
             qDebug() << "Please fill in all fields.";
@@ -55,9 +59,11 @@ void startWindow::on_butRegistation_clicked()
         if(!ui->tbUsername->text().isEmpty() && !ui->tbPassword->text().isEmpty() && !ui->tbEmail->text().isEmpty())
         {
             if (db.addUser(ui->tbUsername->text(), hashPassword(ui->tbPassword->text()), ui->tbEmail->text())) {
-
-            } else {
-
+                this->close();
+                MainWindow * mForm = new MainWindow();
+                mForm->show();
+            } else{
+                QMessageBox::warning(nullptr, "Error", "Заполните все поля.");
             }
         } else {
             qDebug() << "Please fill in all fields.";
