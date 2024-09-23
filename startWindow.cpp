@@ -29,21 +29,42 @@ startWindow::~startWindow()
 
 void startWindow::on_butLogin_clicked()
 {
+    Database db;
+    if (db.open()) {
+        // Проверяем, что поля не пустые
+        if(!ui->tbUsername->text().isEmpty() && !ui->tbPassword->text().isEmpty())
+        {
+            if (db.loginUser(ui->tbUsername->text(), hashPassword(ui->tbPassword->text()))){
 
+            } else {
+
+            }
+        } else {
+            qDebug() << "Please fill in all fields.";
+        }
+    } else {
+        qDebug() << "Failed to open database.";
+    }
 }
 
 void startWindow::on_butRegistation_clicked()
 {
-    Database db("pgdb.uni-dubna.ru","student25","Io_228_1337","student25");
+    Database db;
     if (db.open()) {
-        if(ui->tbUsername->text() != "" && ui->tbPassword->text() != "" && ui->tbEmail->text() != "")
+        // Проверяем, что поля не пустые
+        if(!ui->tbUsername->text().isEmpty() && !ui->tbPassword->text().isEmpty() && !ui->tbEmail->text().isEmpty())
         {
-            if (db.addUser(ui->tbUsername->text(),hashPassword(ui->tbPassword->text()),ui->tbEmail->text())) {
-                qDebug() << "User added successfully!";
+            if (db.addUser(ui->tbUsername->text(), hashPassword(ui->tbPassword->text()), ui->tbEmail->text())) {
+
             } else {
-                qDebug() << "Failed to add user.";
+
             }
+        } else {
+            qDebug() << "Please fill in all fields.";
         }
+    } else {
+        qDebug() << "Failed to open database.";
     }
 }
+
 
