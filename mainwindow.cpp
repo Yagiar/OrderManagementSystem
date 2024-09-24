@@ -21,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
     QWidget *scrollContent = new QWidget();
     QVBoxLayout *goodsLayout = new QVBoxLayout(scrollContent); // Используем новый layout для ScrollArea
 
+    scrollContent->setLayout(goodsLayout);
+
     Database db;
     if (db.open()) {
         QList<Good> goods = db.getGoods();  // Получаем товары из базы
@@ -50,11 +52,13 @@ MainWindow::MainWindow(QWidget *parent)
             goodLayout->addWidget(addToOrderButton);
 
             // Обработка клика по кнопке для раскрытия/сворачивания описания
-            connect(toggleDescriptionButton, &QPushButton::clicked, [descriptionLabel, toggleDescriptionButton]() {
+            // Обработка клика по кнопке для раскрытия/сворачивания описания
+            connect(toggleDescriptionButton, &QPushButton::clicked, this, [descriptionLabel, toggleDescriptionButton]() {
                 bool isVisible = descriptionLabel->isVisible();
                 descriptionLabel->setVisible(!isVisible);
                 toggleDescriptionButton->setText(isVisible ? "Показать описание" : "Скрыть описание");
             });
+
 
             // Добавляем контейнер с товаром в макет товаров
             goodsLayout->addWidget(goodContainer);
@@ -67,6 +71,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Создаем основной макет для окна и добавляем ScrollArea в него
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->addWidget(scrollArea); // Добавляем ScrollArea в основной макет
+
 }
 
 MainWindow::~MainWindow()
