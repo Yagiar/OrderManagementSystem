@@ -52,7 +52,6 @@ MainWindow::MainWindow(QWidget *parent)
             goodLayout->addWidget(addToOrderButton);
 
             // Обработка клика по кнопке для раскрытия/сворачивания описания
-            // Обработка клика по кнопке для раскрытия/сворачивания описания
             connect(toggleDescriptionButton, &QPushButton::clicked, this, [descriptionLabel, toggleDescriptionButton]() {
                 bool isVisible = descriptionLabel->isVisible();
                 descriptionLabel->setVisible(!isVisible);
