@@ -12,7 +12,9 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
-#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -20,20 +22,34 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
-    QWidget *verticalLayoutWidget;
-    QVBoxLayout *goodsLayout;
+    QLabel *label;
+    QScrollArea *scrollArea;
+    QWidget *scrollAreaWidgetContents;
+    QPushButton *pushButton;
+    QLabel *labelCountGoods;
 
     void setupUi(QDialog *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(1175, 499);
-        verticalLayoutWidget = new QWidget(MainWindow);
-        verticalLayoutWidget->setObjectName("verticalLayoutWidget");
-        verticalLayoutWidget->setGeometry(QRect(30, 40, 1131, 441));
-        goodsLayout = new QVBoxLayout(verticalLayoutWidget);
-        goodsLayout->setObjectName("goodsLayout");
-        goodsLayout->setContentsMargins(0, 0, 0, 0);
+        MainWindow->resize(1175, 598);
+        label = new QLabel(MainWindow);
+        label->setObjectName("label");
+        label->setGeometry(QRect(10, 80, 281, 20));
+        scrollArea = new QScrollArea(MainWindow);
+        scrollArea->setObjectName("scrollArea");
+        scrollArea->setGeometry(QRect(10, 110, 1151, 471));
+        scrollArea->setWidgetResizable(true);
+        scrollAreaWidgetContents = new QWidget();
+        scrollAreaWidgetContents->setObjectName("scrollAreaWidgetContents");
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 1149, 469));
+        scrollArea->setWidget(scrollAreaWidgetContents);
+        pushButton = new QPushButton(MainWindow);
+        pushButton->setObjectName("pushButton");
+        pushButton->setGeometry(QRect(10, 40, 271, 29));
+        labelCountGoods = new QLabel(MainWindow);
+        labelCountGoods->setObjectName("labelCountGoods");
+        labelCountGoods->setGeometry(QRect(290, 80, 63, 20));
 
         retranslateUi(MainWindow);
 
@@ -43,6 +59,9 @@ public:
     void retranslateUi(QDialog *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Dialog", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "\320\232\320\276\320\273\320\270\321\207\320\265\321\201\321\202\320\262\320\276 \321\202\320\276\320\262\320\260\321\200\320\276\320\262 \320\262 \321\202\320\265\320\272\321\203\321\211\320\265\320\274 \320\267\320\260\320\272\320\260\320\267\320\265:", nullptr));
+        pushButton->setText(QCoreApplication::translate("MainWindow", "\320\234\320\276\320\270 \320\267\320\260\320\272\320\260\320\267\321\213", nullptr));
+        labelCountGoods->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
     } // retranslateUi
 
 };

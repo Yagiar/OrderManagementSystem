@@ -17,6 +17,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    int countGoods;
 };
 
 #endif // MAINWINDOW_H

@@ -6,15 +6,15 @@
 #include <QLabel>
 #include <QScrollArea>
 #include <QWidget>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QDialog(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::MainWindow), countGoods(0)
 {
     ui->setupUi(this);
-
-    // Создаем ScrollArea
-    QScrollArea *scrollArea = new QScrollArea(this);
+    // Устанавливаем ScrollArea
+    QScrollArea *scrollArea = ui->scrollArea;
     scrollArea->setWidgetResizable(true); // Позволяем содержимому менять размер
 
     // Создаем контейнер для товаров
@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     QVBoxLayout *goodsLayout = new QVBoxLayout(scrollContent); // Используем новый layout для ScrollArea
 
     scrollContent->setLayout(goodsLayout);
+    scrollArea->setWidget(scrollContent); // Устанавливаем новый контейнер в ScrollArea
 
     Database db;
     if (db.open()) {
@@ -58,19 +59,25 @@ MainWindow::MainWindow(QWidget *parent)
                 toggleDescriptionButton->setText(isVisible ? "Показать описание" : "Скрыть описание");
             });
 
+            // Обработка клика по кнопке "Добавить в заказ"
+            connect(addToOrderButton, &QPushButton::clicked, [this, good]() {
+                // Получаем ID товара
+                int goodId = good.getId();
+                countGoods++;
+                // Здесь добавляем товар в список заказов
+                // Например, добавляем его в вектор или список заказов
+                // ordersList.append(goodId); // ordersList - это ваш список заказов
+
+                QString message = "Товар с ID " + QString::number(goodId) + " добавлен в заказ!";
+                QMessageBox::information(this, "Добавлено в заказ", message);
+
+                ui->labelCountGoods->setText(QString::number(countGoods));
+            });
 
             // Добавляем контейнер с товаром в макет товаров
             goodsLayout->addWidget(goodContainer);
         }
     }
-
-    // Устанавливаем новый контейнер в ScrollArea
-    scrollArea->setWidget(scrollContent);
-
-    // Создаем основной макет для окна и добавляем ScrollArea в него
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
-    mainLayout->addWidget(scrollArea); // Добавляем ScrollArea в основной макет
-
 }
 
 MainWindow::~MainWindow()
