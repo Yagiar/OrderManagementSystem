@@ -12,18 +12,28 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_MainWindow
 {
 public:
+    QWidget *verticalLayoutWidget;
+    QVBoxLayout *goodsLayout;
 
     void setupUi(QDialog *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(581, 499);
+        MainWindow->resize(1175, 499);
+        verticalLayoutWidget = new QWidget(MainWindow);
+        verticalLayoutWidget->setObjectName("verticalLayoutWidget");
+        verticalLayoutWidget->setGeometry(QRect(30, 40, 1131, 441));
+        goodsLayout = new QVBoxLayout(verticalLayoutWidget);
+        goodsLayout->setObjectName("goodsLayout");
+        goodsLayout->setContentsMargins(0, 0, 0, 0);
 
         retranslateUi(MainWindow);
 

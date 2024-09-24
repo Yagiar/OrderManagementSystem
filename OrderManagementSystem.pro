@@ -10,6 +10,7 @@ CONFIG += c++11
 SOURCES += \
     database.cpp \
     factory.cpp \
+    good.cpp \
     main.cpp \
     mainwindow.cpp \
     order.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
 HEADERS += \
     database.h \
     factory.h \
+    good.h \
     mainwindow.h \
     order.h \
     orderstate.h \

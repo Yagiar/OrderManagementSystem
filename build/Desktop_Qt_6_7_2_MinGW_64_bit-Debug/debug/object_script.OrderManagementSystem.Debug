@@ -1,5 +1,6 @@
 debug/database.o
 debug/factory.o
+debug/good.o
 debug/main.o
 debug/mainwindow.o
 debug/order.o

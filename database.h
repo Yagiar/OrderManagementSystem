@@ -7,15 +7,23 @@
 #include <QString>
 #include <QDebug>
 #include <QMessageBox>
+#include "good.h"
 
 class Database {
 public:
     Database() {
         db = QSqlDatabase::addDatabase("QPSQL");
-        db.setHostName("pgdb.uni-dubna.ru");
-        db.setUserName("student25");
+
+        /*
+         * db.setHostName("pgdb.uni-dubna.ru");
+        db.setUserName("student25"); // удаленно для униковской базы
         db.setPassword("Io_228_1337");
         db.setDatabaseName("student25");
+        */
+         db.setHostName("localhost");
+        db.setUserName("postgres"); // ЛОКАЛЬНО ДЛЯ НОУТБУКА(МАШИНЫ)
+        db.setPassword("Io_228");
+        db.setDatabaseName("postgres");
     }
     ~Database() {
         close();
@@ -120,6 +128,25 @@ public:
             return false;
         }
     }
+    QList<Good> getGoods() {
+        QList<Good> goods;
+        QSqlQuery query("SELECT id, name, category_id, price, description, weight FROM goods");
+
+        while (query.next()) {
+            int id = query.value(0).toInt();
+            QString name = query.value(1).toString();
+            int categoryId = query.value(2).toInt();
+            double price = query.value(3).toDouble();
+            QString description = query.value(4).toString();
+            double weight = query.value(5).toDouble();
+
+            Good good(id, name, categoryId, price, description, weight);
+            goods.append(good);
+        }
+
+        return goods;
+    }
+
 
 private:
     QSqlDatabase db;

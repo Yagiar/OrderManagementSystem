@@ -1,5 +1,6 @@
 release/database.o
 release/factory.o
+release/good.o
 release/main.o
 release/mainwindow.o
 release/order.o
