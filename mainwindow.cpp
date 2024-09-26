@@ -8,6 +8,7 @@
 #include <QWidget>
 #include <QMessageBox>
 #include "bagdialog.h"
+#include "createorderdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QDialog(parent)
@@ -86,12 +87,19 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::on_butShowCurBag_clicked() {
-    // Открываем BagDialog и передаем список товаров
-    qDebug() << "Number of items in choosenGoods: " << choosenGoods->count();
+
+    // qDebug() << "Number of items in choosenGoods: " << choosenGoods->count();
     BagDialog *bagDialog = new BagDialog(choosenGoods, this);
     bagDialog->exec();
 
     // После закрытия обновляем количество товаров в корзине
     ui->labelCountGoods->setText(QString::number(choosenGoods->count()));
+}
+
+
+void MainWindow::on_butCreateOrder_clicked()
+{
+    CreateOrderDialog *cr = new CreateOrderDialog(choosenGoods, this);
+    cr->exec();
 }
 

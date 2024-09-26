@@ -88,6 +88,19 @@
     <string>Показать корзину</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="butCreateOrder">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>70</y>
+     <width>141</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Заказать</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

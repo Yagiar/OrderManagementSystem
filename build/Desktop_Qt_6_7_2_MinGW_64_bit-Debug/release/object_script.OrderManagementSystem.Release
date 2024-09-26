@@ -1,4 +1,5 @@
 release/bagdialog.o
+release/createorderdialog.o
 release/database.o
 release/factory.o
 release/good.o
@@ -10,5 +11,6 @@ release/startWindow.o
 release/user.o
 release/qrc_qmake_qmake_qm_files.o
 release/moc_bagdialog.o
+release/moc_createorderdialog.o
 release/moc_mainwindow.o
 release/moc_startWindow.o

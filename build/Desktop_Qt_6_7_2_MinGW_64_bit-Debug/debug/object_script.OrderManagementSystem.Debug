@@ -1,4 +1,5 @@
 debug/bagdialog.o
+debug/createorderdialog.o
 debug/database.o
 debug/factory.o
 debug/good.o
@@ -10,5 +11,6 @@ debug/startWindow.o
 debug/user.o
 debug/qrc_qmake_qmake_qm_files.o
 debug/moc_bagdialog.o
+debug/moc_createorderdialog.o
 debug/moc_mainwindow.o
 debug/moc_startWindow.o

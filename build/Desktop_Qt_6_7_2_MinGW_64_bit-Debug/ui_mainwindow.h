@@ -28,6 +28,7 @@ public:
     QPushButton *butShowOrders;
     QLabel *labelCountGoods;
     QPushButton *butShowCurBag;
+    QPushButton *butCreateOrder;
 
     void setupUi(QDialog *MainWindow)
     {
@@ -54,6 +55,9 @@ public:
         butShowCurBag = new QPushButton(MainWindow);
         butShowCurBag->setObjectName("butShowCurBag");
         butShowCurBag->setGeometry(QRect(370, 70, 161, 31));
+        butCreateOrder = new QPushButton(MainWindow);
+        butCreateOrder->setObjectName("butCreateOrder");
+        butCreateOrder->setGeometry(QRect(540, 70, 141, 31));
 
         retranslateUi(MainWindow);
 
@@ -67,6 +71,7 @@ public:
         butShowOrders->setText(QCoreApplication::translate("MainWindow", "\320\234\320\276\320\270 \320\267\320\260\320\272\320\260\320\267\321\213", nullptr));
         labelCountGoods->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
         butShowCurBag->setText(QCoreApplication::translate("MainWindow", "\320\237\320\276\320\272\320\260\320\267\320\260\321\202\321\214 \320\272\320\276\321\200\320\267\320\270\320\275\321\203", nullptr));
+        butCreateOrder->setText(QCoreApplication::translate("MainWindow", "\320\227\320\260\320\272\320\260\320\267\320\260\321\202\321\214", nullptr));
     } // retranslateUi
 
 };

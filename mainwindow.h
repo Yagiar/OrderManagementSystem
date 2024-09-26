@@ -19,6 +19,8 @@ public:
 private slots:
     void on_butShowCurBag_clicked();
 
+    void on_butCreateOrder_clicked();
+
 private:
     Ui::MainWindow *ui;
     int countGoods;

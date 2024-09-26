@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 SOURCES += \
     bagdialog.cpp \
+    createorderdialog.cpp \
     database.cpp \
     factory.cpp \
     good.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
 
 HEADERS += \
     bagdialog.h \
+    createorderdialog.h \
     database.h \
     factory.h \
     good.h \
@@ -32,6 +34,7 @@ HEADERS += \
 
 FORMS += \
     bagdialog.ui \
+    createorderdialog.ui \
     mainwindow.ui \
     startWindow.ui
 
