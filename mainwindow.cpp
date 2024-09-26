@@ -7,12 +7,14 @@
 #include <QScrollArea>
 #include <QWidget>
 #include <QMessageBox>
+#include "bagdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QDialog(parent)
-    , ui(new Ui::MainWindow), countGoods(0)
+    , ui(new Ui::MainWindow), countGoods(0), choosenGoods(new QList<Good>())
 {
     ui->setupUi(this);
+      setWindowTitle("Основное окно");
     // Устанавливаем ScrollArea
     QScrollArea *scrollArea = ui->scrollArea;
     scrollArea->setWidgetResizable(true); // Позволяем содержимому менять размер
@@ -63,15 +65,12 @@ MainWindow::MainWindow(QWidget *parent)
             connect(addToOrderButton, &QPushButton::clicked, [this, good]() {
                 // Получаем ID товара
                 int goodId = good.getId();
-                countGoods++;
-                // Здесь добавляем товар в список заказов
-                // Например, добавляем его в вектор или список заказов
-                // ordersList.append(goodId); // ordersList - это ваш список заказов
 
                 QString message = "Товар с ID " + QString::number(goodId) + " добавлен в заказ!";
                 QMessageBox::information(this, "Добавлено в заказ", message);
 
-                ui->labelCountGoods->setText(QString::number(countGoods));
+                choosenGoods->append(good);
+                ui->labelCountGoods->setText(QString::number(choosenGoods->count()));
             });
 
             // Добавляем контейнер с товаром в макет товаров
@@ -83,4 +82,16 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete choosenGoods;
 }
+
+void MainWindow::on_butShowCurBag_clicked() {
+    // Открываем BagDialog и передаем список товаров
+    qDebug() << "Number of items in choosenGoods: " << choosenGoods->count();
+    BagDialog *bagDialog = new BagDialog(choosenGoods, this);
+    bagDialog->exec();
+
+    // После закрытия обновляем количество товаров в корзине
+    ui->labelCountGoods->setText(QString::number(choosenGoods->count()));
+}
+

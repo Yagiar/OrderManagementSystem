@@ -19,6 +19,7 @@ startWindow::startWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::startWindow)
 {
+      setWindowTitle("Аутентификация");
     ui->setupUi(this);
     ui->tbPassword->setEchoMode(QLineEdit::Password);
 }

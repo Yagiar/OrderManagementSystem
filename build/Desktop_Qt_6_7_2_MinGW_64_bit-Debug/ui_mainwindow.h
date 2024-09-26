@@ -25,8 +25,9 @@ public:
     QLabel *label;
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents;
-    QPushButton *pushButton;
+    QPushButton *butShowOrders;
     QLabel *labelCountGoods;
+    QPushButton *butShowCurBag;
 
     void setupUi(QDialog *MainWindow)
     {
@@ -44,12 +45,15 @@ public:
         scrollAreaWidgetContents->setObjectName("scrollAreaWidgetContents");
         scrollAreaWidgetContents->setGeometry(QRect(0, 0, 1149, 469));
         scrollArea->setWidget(scrollAreaWidgetContents);
-        pushButton = new QPushButton(MainWindow);
-        pushButton->setObjectName("pushButton");
-        pushButton->setGeometry(QRect(10, 40, 271, 29));
+        butShowOrders = new QPushButton(MainWindow);
+        butShowOrders->setObjectName("butShowOrders");
+        butShowOrders->setGeometry(QRect(10, 40, 271, 29));
         labelCountGoods = new QLabel(MainWindow);
         labelCountGoods->setObjectName("labelCountGoods");
         labelCountGoods->setGeometry(QRect(290, 80, 63, 20));
+        butShowCurBag = new QPushButton(MainWindow);
+        butShowCurBag->setObjectName("butShowCurBag");
+        butShowCurBag->setGeometry(QRect(370, 70, 161, 31));
 
         retranslateUi(MainWindow);
 
@@ -60,8 +64,9 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Dialog", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "\320\232\320\276\320\273\320\270\321\207\320\265\321\201\321\202\320\262\320\276 \321\202\320\276\320\262\320\260\321\200\320\276\320\262 \320\262 \321\202\320\265\320\272\321\203\321\211\320\265\320\274 \320\267\320\260\320\272\320\260\320\267\320\265:", nullptr));
-        pushButton->setText(QCoreApplication::translate("MainWindow", "\320\234\320\276\320\270 \320\267\320\260\320\272\320\260\320\267\321\213", nullptr));
+        butShowOrders->setText(QCoreApplication::translate("MainWindow", "\320\234\320\276\320\270 \320\267\320\260\320\272\320\260\320\267\321\213", nullptr));
         labelCountGoods->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        butShowCurBag->setText(QCoreApplication::translate("MainWindow", "\320\237\320\276\320\272\320\260\320\267\320\260\321\202\321\214 \320\272\320\276\321\200\320\267\320\270\320\275\321\203", nullptr));
     } // retranslateUi
 
 };

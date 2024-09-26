@@ -35,6 +35,9 @@ public:
         return weight;
     }
 
+    bool operator==(const Good &other) const {
+        return this->id == other.id;  // Например, сравнение по ID
+    }
 
 private:
     int id;               // Уникальный идентификатор товара

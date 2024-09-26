@@ -49,7 +49,7 @@
     </property>
    </widget>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="butShowOrders">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -73,6 +73,19 @@
    </property>
    <property name="text">
     <string>0</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="butShowCurBag">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>70</y>
+     <width>161</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Показать корзину</string>
    </property>
   </widget>
  </widget>
