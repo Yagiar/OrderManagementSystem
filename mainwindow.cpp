@@ -1,35 +1,60 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
 #include "database.h"
-#include <QPushButton>
-#include <QVBoxLayout>
-#include <QLabel>
-#include <QScrollArea>
-#include <QWidget>
+#include <QPushButton>  // Add this line
 #include <QMessageBox>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QLabel>
 #include "bagdialog.h"
 #include "createorderdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QDialog(parent)
-    , ui(new Ui::MainWindow), countGoods(0), choosenGoods(new QList<Good>())
+    : QMainWindow(parent), countGoods(0), choosenGoods(new QList<Good>())
 {
-    ui->setupUi(this);
-      setWindowTitle("Основное окно");
-    // Устанавливаем ScrollArea
-    QScrollArea *scrollArea = ui->scrollArea;
-    scrollArea->setWidgetResizable(true); // Позволяем содержимому менять размер
+    setWindowTitle("Основное окно");
 
-    // Создаем контейнер для товаров
+    // Создаем центральный виджет и устанавливаем его для MainWindow
+    QWidget *centralWidget = new QWidget(this);
+    setCentralWidget(centralWidget);
+
+    // Создаем главный вертикальный layout
+    QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
+
+    // Создаем QLabel для отображения количества товаров
+    QLabel *label = new QLabel("Количество товаров в текущем заказе:", this);
+    mainLayout->addWidget(label);
+
+    // QLabel для отображения количества товаров
+    QLabel *labelCountGoods = new QLabel("0", this);
+    mainLayout->addWidget(labelCountGoods);
+
+    // Создаем ScrollArea для товаров
+    QScrollArea *scrollArea = new QScrollArea(this);
+    scrollArea->setWidgetResizable(true);
+    mainLayout->addWidget(scrollArea);
+
+    // Создаем контейнер для ScrollArea
     QWidget *scrollContent = new QWidget();
-    QVBoxLayout *goodsLayout = new QVBoxLayout(scrollContent); // Используем новый layout для ScrollArea
-
+    QVBoxLayout *goodsLayout = new QVBoxLayout(scrollContent);
     scrollContent->setLayout(goodsLayout);
-    scrollArea->setWidget(scrollContent); // Устанавливаем новый контейнер в ScrollArea
+    scrollArea->setWidget(scrollContent);
 
+    // Кнопка "Показать корзину"
+    QPushButton *butShowCurBag = new QPushButton("Показать корзину", this);
+    mainLayout->addWidget(butShowCurBag);
+
+    // Кнопка "Заказать"
+    QPushButton *butCreateOrder = new QPushButton("Заказать", this);
+    mainLayout->addWidget(butCreateOrder);
+
+    // Подключаем сигналы к слотам
+    connect(butShowCurBag, &QPushButton::clicked, this, &MainWindow::on_butShowCurBag_clicked);
+    connect(butCreateOrder, &QPushButton::clicked, this, &MainWindow::on_butCreateOrder_clicked);
+
+    // Получаем товары из базы
     Database db;
     if (db.open()) {
-        QList<Good> goods = db.getGoods();  // Получаем товары из базы
+        QList<Good> goods = db.getGoods();
 
         foreach (const Good &good, goods) {
             // Создаем контейнер для товара
@@ -37,22 +62,20 @@ MainWindow::MainWindow(QWidget *parent)
             QVBoxLayout *goodLayout = new QVBoxLayout(goodContainer);
 
             // Название и цена товара
-            QLabel *goodLabel = new QLabel(good.getName() + " - " + QString::number(good.getPrice()) + "₽");
+            QLabel *goodLabel = new QLabel(good.getName() + " - " + QString::number(good.getPrice()) + "₽", this);
             goodLayout->addWidget(goodLabel);
 
             // Описание товара
-            QLabel *descriptionLabel = new QLabel(good.getDescription());
+            QLabel *descriptionLabel = new QLabel(good.getDescription(), this);
             descriptionLabel->setVisible(false); // Скрываем описание по умолчанию
             goodLayout->addWidget(descriptionLabel);
 
             // Кнопка для раскрытия/сворачивания описания
             QPushButton *toggleDescriptionButton = new QPushButton("Показать описание", this);
-            toggleDescriptionButton->setFixedHeight(30);  // Устанавливаем фиксированную высоту
             goodLayout->addWidget(toggleDescriptionButton);
 
             // Кнопка "Добавить в заказ"
             QPushButton *addToOrderButton = new QPushButton("Добавить в заказ", this);
-            addToOrderButton->setFixedHeight(30); // Устанавливаем фиксированную высоту
             goodLayout->addWidget(addToOrderButton);
 
             // Обработка клика по кнопке для раскрытия/сворачивания описания
@@ -63,15 +86,10 @@ MainWindow::MainWindow(QWidget *parent)
             });
 
             // Обработка клика по кнопке "Добавить в заказ"
-            connect(addToOrderButton, &QPushButton::clicked, [this, good]() {
-                // Получаем ID товара
-                int goodId = good.getId();
-
-                QString message = "Товар с ID " + QString::number(goodId) + " добавлен в заказ!";
-                QMessageBox::information(this, "Добавлено в заказ", message);
-
+            connect(addToOrderButton, &QPushButton::clicked, [this, good, labelCountGoods]() {
                 choosenGoods->append(good);
-                ui->labelCountGoods->setText(QString::number(choosenGoods->count()));
+                labelCountGoods->setText(QString::number(choosenGoods->count()));
+                QMessageBox::information(this, "Добавлено в заказ", "Товар с ID " + QString::number(good.getId()) + " добавлен в заказ!");
             });
 
             // Добавляем контейнер с товаром в макет товаров
@@ -82,24 +100,15 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    delete ui;
     delete choosenGoods;
 }
 
 void MainWindow::on_butShowCurBag_clicked() {
-
-    // qDebug() << "Number of items in choosenGoods: " << choosenGoods->count();
     BagDialog *bagDialog = new BagDialog(choosenGoods, this);
     bagDialog->exec();
-
-    // После закрытия обновляем количество товаров в корзине
-    ui->labelCountGoods->setText(QString::number(choosenGoods->count()));
 }
 
-
-void MainWindow::on_butCreateOrder_clicked()
-{
+void MainWindow::on_butCreateOrder_clicked() {
     CreateOrderDialog *cr = new CreateOrderDialog(choosenGoods, this);
     cr->exec();
 }
-
