@@ -17,6 +17,7 @@ public:
     startWindow(QWidget *parent = nullptr);
     ~startWindow();
 
+
 private slots:
     void on_butLogin_clicked();
 

@@ -79,7 +79,24 @@ public:
         }
         return false;
     }
+    int GetUserIdByUsername(const QString& username) {
+        // Предполагаем, что у вас есть открытое соединение с базой данных
+        QSqlQuery query;
 
+        query.prepare("SELECT user_id FROM users WHERE username = :username");
+        query.bindValue(":username", username);
+
+        if (!query.exec()) {
+            qDebug() << "Ошибка выполнения запроса:" << query.lastError();
+            return -1;
+        }
+
+        if (query.next()) {
+            return query.value(0).toInt();
+        }
+
+        return -1;
+    }
     // Метод для добавления пользователя
     bool addUser(const QString& username, const QString& passwordHash, const QString& email) {
         QString result;
@@ -147,6 +164,42 @@ public:
         return goods;
     }
 
+    bool InsertOrder(int userId, const QString& orderDescription, const QString& orderType,
+                     int stateId, int priorityId, const QList<Good>& goods) {
+        // Вставляем заказ в таблицу orders
+        QSqlQuery query;
+        query.prepare("INSERT INTO orders (user_id, order_description, order_type, state_id, priority_id) "
+                      "VALUES (:userId, :orderDescription, :orderType, :stateId, :priorityId)");
+        query.bindValue(":userId", userId);
+        query.bindValue(":orderDescription", orderDescription);
+        query.bindValue(":orderType", orderType);
+        query.bindValue(":stateId", stateId);
+        query.bindValue(":priorityId", priorityId);
+
+        if (!query.exec()) {
+            qDebug() << "Ошибка вставки заказа: " << query.lastError().text();
+            return false;
+        }
+
+        // Получаем order_id для нового заказа
+        int orderId = query.lastInsertId().toInt();
+
+        // Разбиваем goodsIds (предполагается, что это строка с идентификаторами товаров, разделёнными запятыми)
+
+        // Вставляем данные в связующую таблицу goods_orders
+        for (const Good& curGood : goods) {
+            query.prepare("INSERT INTO goods_orders (good_id, order_id) VALUES (:goodId, :orderId)");
+            query.bindValue(":goodId", curGood.getId());
+            query.bindValue(":orderId", orderId);
+
+            if (!query.exec()) {
+                qDebug() << "Ошибка вставки товара в goods_orders: " << query.lastError().text();
+                return false;
+            }
+        }
+        qDebug() << "Заказ успешно добавлен, order_id: " << orderId;
+        return true;
+    }
 
 private:
     QSqlDatabase db;

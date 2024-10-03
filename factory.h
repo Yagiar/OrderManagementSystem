@@ -1,26 +1,27 @@
 #ifndef FACTORY_H
 #define FACTORY_H
 #include "order.h"
-
+#include "good.h"
 // Фабричный класс для создания объектов Order
 class Factory {
 public:
     virtual ~Factory() {};
 
     // Чисто виртуальный метод фабричного создания
-    virtual Order* CreateOrder() = 0;
+
 
     // Метод для выполнения операции с заказом
-    std::string SomeOperation() {
+    void CreationOfOrder(const QString& orderDescription,
+                      int stateId, int priorityId, const QList<Good>& goods) {
         // Используем фабричный метод для создания заказа
         Order* order = this->CreateOrder();
         // Обрабатываем заказ
-        std::string msg = order->processOrder();
-        // Удаляем заказ, чтобы избежать утечек памяти
-        delete order;
+        order->processOrder(orderDescription, stateId,priorityId,goods);
 
-        return msg;
+        delete order;
     }
+private:
+        virtual Order* CreateOrder() = 0;
 };
 
 // Конкретная фабрика для создания цифровых заказов

@@ -2,8 +2,10 @@
 #include <QWidget>
 #include <QLabel>
 #include "startWindow.h"
-
+#include <QString>
 //"Host=pgdb.uni-dubna.ru;Username=student25;Password=Io_228_1337;Database=student25" подключение к базе
+
+QString username="";
 
 int main(int argc, char *argv[])
 {

@@ -8,6 +8,8 @@
 #include "bagdialog.h"
 #include "createorderdialog.h"
 
+extern QString username;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), countGoods(0), choosenGoods(new QList<Good>())
 {

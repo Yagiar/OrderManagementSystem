@@ -4,6 +4,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QScrollArea>
+#include "factory.h"
 
 CreateOrderDialog::CreateOrderDialog(QList<Good> *choosenGoods, QWidget *parent)
     : QDialog(parent)
@@ -46,3 +47,28 @@ CreateOrderDialog::~CreateOrderDialog()
 {
     delete ui;
 }
+
+void CreateOrderDialog::on_pushButton_clicked()
+{
+    switch(ui->comboBoxTypeOrder->currentIndex())
+    {
+    case 0:
+        {
+            Factory* factory = new DigitalFactory();
+            factory->CreationOfOrder(ui->textEditDescriptionOrder->toPlainText(), 1, ui->comboBoxPriorityOrder->currentIndex()+1, *goods);
+
+            delete factory;
+            break;
+        }
+
+    case 1:
+        {
+            Factory* factory = new PhysicalFactory();
+            factory->CreationOfOrder(ui->textEditDescriptionOrder->toPlainText(), 1, ui->comboBoxPriorityOrder->currentIndex()+1, *goods);
+
+            delete factory;
+            break;
+        }
+    }
+}
+

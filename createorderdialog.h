@@ -17,6 +17,9 @@ public:
     explicit CreateOrderDialog(QList<Good> *choosenGoods, QWidget *parent = nullptr);
     ~CreateOrderDialog();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::CreateOrderDialog *ui;
     QList<Good> *goods;

@@ -9,6 +9,7 @@
 #include <database.h>
 #include "mainwindow.h"
 
+extern QString username;
 
 static QString hashPassword(const QString& password) {
     QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256);
@@ -39,6 +40,7 @@ void startWindow::on_butLogin_clicked()
         {
             if (db.loginUser(ui->tbUsername->text(), hashPassword(ui->tbPassword->text()))){
                 this->close();
+                username = ui->tbUsername->text();
                 MainWindow * mForm = new MainWindow();
                 mForm->show();
             } else {
@@ -61,6 +63,7 @@ void startWindow::on_butRegistation_clicked()
         {
             if (db.addUser(ui->tbUsername->text(), hashPassword(ui->tbPassword->text()), ui->tbEmail->text())) {
                 this->close();
+                username = ui->tbUsername->text();
                 MainWindow * mForm = new MainWindow();
                 mForm->show();
             } else{
