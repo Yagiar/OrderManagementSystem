@@ -1,52 +1,79 @@
 #ifndef ORDER_H
 #define ORDER_H
 
-#include <iostream>
 #include <QString>
-#include "database.h"
+#include <QList>
 #include "good.h"
+#include "orderstate.h"
 
-extern QString username;
+// Forward declaration of the OrderState class
+class OrderState;
+
+extern QString username;  // Using a global variable, but better to refactor
+
 class Order {
+private:
+    OrderState* state;  // Raw pointer for managing state
+     int orderId;
+
 public:
-    virtual ~Order() {}
-    // Чисто виртуальный метод для обработки заказа
-    virtual void processOrder(const QString& orderDescription,
-                              int stateId, int priorityId, const QList<Good>& goods) = 0;
+    virtual ~Order() {
+        delete state;  // Don't forget to delete the state
+    }
+
+    void setState(OrderState* newState) {
+        delete state;  // Delete the previous state
+        state = newState;  // Set the new state
+    }
+
+    int getOrderId() const {
+        return orderId;
+    }
+
+    // Метод для установки идентификатора заказа
+    void setOrderId(int id) {
+        orderId = id;
+    }
+    void processOrder(const QString& orderDescription, int stateId, int priorityId, const QList<Good>& goods) {
+        if (state) {
+            state->processOrder(this, orderDescription, stateId, priorityId, goods);
+        }
+    }
+
+    virtual QString getOrderType() = 0;
+    QString getUsername() const { return username; }
 };
 
+// Physical order class
 class PhysicalOrder : public Order {
 public:
-    // Переопределение метода обработки физического заказа
-    void processOrder(const QString& orderDescription,
-                      int stateId, int priorityId, const QList<Good>& goods) override {
-        Database db;
-        if(db.open())
-        {
-            db.InsertOrder(db.GetUserIdByUsername(username), orderDescription, "Физический", stateId, priorityId, goods);
-        }
-        else
-        {
-            // какой-нибудь QDebug
-        }
+    PhysicalOrder() {
+        setState(new CreatedState());  // Set the initial state
+    }
+
+    PhysicalOrder(int id) {
+        setOrderId(id); // Устанавливаем идентификатор заказа
+        setState(new CreatedState());
+    }
+
+    QString getOrderType() override {
+        return "Physical";
     }
 };
 
+// Digital order class
 class DigitalOrder : public Order {
 public:
-    // Переопределение метода обработки цифрового заказа
-    void processOrder(const QString& orderDescription,
-                      int stateId, int priorityId, const QList<Good>& goods) override {
-        Database db;
-        if(db.open())
-        {
-            db.InsertOrder(db.GetUserIdByUsername(username), orderDescription, "Цифровой", stateId, priorityId, goods);
-        }
-        else
-        {
-            // какой-нибудь QDebug
-        }
+    DigitalOrder() {
+        setState(new CreatedState());  // Set the initial state
+    }
 
+    DigitalOrder(int id) {
+        setOrderId(id); // Устанавливаем идентификатор заказа
+        setState(new CreatedState());
+    }
+    QString getOrderType() override {
+        return "Digital";
     }
 };
 

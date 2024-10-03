@@ -1,31 +1,42 @@
 #ifndef ORDERSTATE_H
 #define ORDERSTATE_H
-#include "order.h"
 
+#include <QString>
+#include "good.h"
+
+// Forward declaration of the Order class to avoid circular dependency
+class Order;
+
+// Base class for order states
 class OrderState {
 public:
-    virtual void handle(Order* order) = 0;
+    virtual ~OrderState() {}
+
+    // Virtual method to process an order
+    virtual void processOrder(Order* order, const QString& orderDescription,
+                              int stateId, int priorityId, const QList<Good>& goods) = 0;
 };
 
-class NewOrderState : public OrderState {
+// Forward declaration of other states
+class ProcessingState;
+class CompletedState;
+
+class CreatedState : public OrderState {
 public:
-    void handle(Order* order) override {
-        // логика для новых заказов
-    }
+    void processOrder(Order* order, const QString& orderDescription,
+                      int stateId, int priorityId, const QList<Good>& goods) override;
 };
 
-class ProcessingOrderState : public OrderState {
+class ProcessingState : public OrderState {
 public:
-    void handle(Order* order) override {
-        // логика для заказов в обработке
-    }
+    void processOrder(Order* order, const QString& orderDescription,
+                      int stateId, int priorityId, const QList<Good>& goods) override;
 };
 
-class CompletedOrderState : public OrderState {
+class CompletedState : public OrderState {
 public:
-    void handle(Order* order) override {
-        // логика для завершённых заказов
-    }
+    void processOrder(Order* order, const QString& orderDescription,
+                      int stateId, int priorityId, const QList<Good>& goods) override;
 };
 
 #endif // ORDERSTATE_H

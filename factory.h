@@ -2,6 +2,7 @@
 #define FACTORY_H
 #include "order.h"
 #include "good.h"
+
 // Фабричный класс для создания объектов Order
 class Factory {
 public:

@@ -201,6 +201,19 @@ public:
         return true;
     }
 
+    void UpdateOrderState(int orderId, int newStateId) {
+        QSqlQuery query;
+        query.prepare("UPDATE orders SET state_id = :newStateId WHERE order_id = :orderId");
+        query.bindValue(":newStateId", newStateId);
+        query.bindValue(":orderId", orderId);
+
+        if (!query.exec()) {
+            qDebug() << "Ошибка при обновлении состояния заказа:" << query.lastError().text();
+        } else {
+            qDebug() << "Состояние заказа с ID" << orderId << "обновлено на" << newStateId;
+        }
+    }
+
 private:
     QSqlDatabase db;
 
