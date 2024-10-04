@@ -44,8 +44,20 @@ void startWindow::on_butLogin_clicked()
                 MainWindow * mForm = new MainWindow();
                 mForm->show();
             } else {
-                QMessageBox::warning(nullptr, "Error", "Заполните все поля.");
+                if(db.loginUserWithRole(ui->tbUsername->text(), hashPassword(ui->tbPassword->text())))
+                {
+                   // this.close();
+                    username = ui->tbUsername->text();
+                    // показываем новую форму
+                    //пока что так
+                    QMessageBox::information(this, "Инфа", "Вы успешно вошли под манагером: " + username);
+                }
+                else
+                {
+                    QMessageBox::warning(nullptr, "Login Error", "User does not exist.");
+                }
             }
+
         } else {
             qDebug() << "Please fill in all fields.";
         }

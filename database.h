@@ -123,7 +123,7 @@ public:
     // Метод для логина пользователя
     bool loginUser(const QString& username, const QString& passwordHash) {
         QSqlQuery query;
-        query.prepare("SELECT password_hash FROM users WHERE username = :username");
+        query.prepare("SELECT password_hash FROM users WHERE username = :username AND role = 'user'");
         query.bindValue(":username", username);
 
         if (!query.exec()) {
@@ -134,14 +134,37 @@ public:
         if (query.next()) {
             QString storedPasswordHash = query.value(0).toString();
             if (storedPasswordHash == passwordHash) {
-                qDebug() << "Login successful!";
+                qDebug() << "Login user successful!";
                 return true;
             } else {
                 QMessageBox::warning(nullptr, "Login Error", "Incorrect password.");
                 return false;
             }
         } else {
-            QMessageBox::warning(nullptr, "Login Error", "User does not exist.");
+            return false;
+        }
+    }
+    bool loginUserWithRole(const QString& username, const QString& passwordHash) {
+        QSqlQuery query;
+        query.prepare("SELECT password_hash FROM users WHERE username = :username and role = 'manager'");
+        query.bindValue(":username", username);
+
+        if (!query.exec()) {
+            qDebug() << "Error: Unable to execute login query" << query.lastError().text();
+            return false;
+        }
+
+        if (query.next()) {
+            QString storedPasswordHash = query.value(0).toString();
+            if (storedPasswordHash == passwordHash )
+            {
+                qDebug() << "Login manager successful!";
+                return true;
+            } else {
+                QMessageBox::warning(nullptr, "Login manager Error", "Incorrect password.");
+                return false;
+            }
+        } else {
             return false;
         }
     }
