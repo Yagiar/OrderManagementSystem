@@ -36,9 +36,10 @@ public:
     }
     void processOrder(const QString& orderDescription, int stateId, int priorityId, const QList<Good>& goods) {
         if (state) {
-            state->processOrder(this, orderDescription, stateId, priorityId, goods);
+            state->changeState(this, orderDescription, stateId, priorityId, goods);
         }
     }
+
 
     virtual QString getOrderType() = 0;
     QString getUsername() const { return username; }

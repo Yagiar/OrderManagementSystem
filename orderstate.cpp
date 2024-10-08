@@ -3,7 +3,7 @@
 #include "database.h"
 #include <QDebug>
 
-void CreatedState::processOrder(Order* order, const QString& orderDescription,
+void CreatedState::changeState(Order* order, const QString& orderDescription,
                                 int stateId, int priorityId, const QList<Good>& goods) {
     Database db;
     if (db.open()) {
@@ -15,7 +15,7 @@ void CreatedState::processOrder(Order* order, const QString& orderDescription,
 }
 
 // Implementation of ProcessingState
-void ProcessingState::processOrder(Order* order, const QString& orderDescription,
+void ProcessingState::changeState(Order* order, const QString& orderDescription,
                                    int stateId, int priorityId, const QList<Good>& goods) {
     Database db;
     if (db.open()) {
@@ -27,7 +27,7 @@ void ProcessingState::processOrder(Order* order, const QString& orderDescription
 }
 
 // Implementation of CompletedState
-void CompletedState::processOrder(Order* order, const QString& orderDescription,
+void CompletedState::changeState(Order* order, const QString& orderDescription,
                                   int stateId, int priorityId, const QList<Good>& goods) {
     Database db;
     if (db.open()) {

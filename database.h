@@ -236,7 +236,6 @@ public:
             qDebug() << "Состояние заказа с ID" << orderId << "обновлено на" << newStateId;
         }
     }
-
 private:
     QSqlDatabase db;
 

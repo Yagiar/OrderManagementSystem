@@ -13,7 +13,7 @@ public:
     virtual ~OrderState() {}
 
     // Virtual method to process an order
-    virtual void processOrder(Order* order, const QString& orderDescription,
+    virtual void changeState(Order* order, const QString& orderDescription,
                               int stateId, int priorityId, const QList<Good>& goods) = 0;
 };
 
@@ -23,19 +23,19 @@ class CompletedState;
 
 class CreatedState : public OrderState {
 public:
-    void processOrder(Order* order, const QString& orderDescription,
+    void changeState(Order* order, const QString& orderDescription,
                       int stateId, int priorityId, const QList<Good>& goods) override;
 };
 
 class ProcessingState : public OrderState {
 public:
-    void processOrder(Order* order, const QString& orderDescription,
+    void changeState(Order* order, const QString& orderDescription,
                       int stateId, int priorityId, const QList<Good>& goods) override;
 };
 
 class CompletedState : public OrderState {
 public:
-    void processOrder(Order* order, const QString& orderDescription,
+    void changeState(Order* order, const QString& orderDescription,
                       int stateId, int priorityId, const QList<Good>& goods) override;
 };
 
