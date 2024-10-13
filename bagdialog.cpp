@@ -9,54 +9,46 @@ BagDialog::BagDialog(QList<Good> *choosenGoods, QWidget *parent)
 {
       setWindowTitle("Корзина");
 
-    // Создаем основной вертикальный layout для диалога
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
-    // Создаем ScrollArea
     scrollArea = new QScrollArea(this);
-    scrollArea->setWidgetResizable(true); // Позволяем содержимому менять размер
+    scrollArea->setWidgetResizable(true);
 
     // Создаем контейнер для товаров
     scrollContent = new QWidget();
-    QVBoxLayout *goodsLayout = new QVBoxLayout(scrollContent); // Используем новый layout для ScrollArea
+    QVBoxLayout *goodsLayout = new QVBoxLayout(scrollContent);
 
-    // Заполняем список товаров в QListWidget
     for (const Good &good : *goods) {
-        // Создаем контейнер для элемента списка и кнопки
+
         QWidget *itemWidget = new QWidget();
         QHBoxLayout *itemLayout = new QHBoxLayout(itemWidget);
         itemLayout->addWidget(new QLabel(good.getName() + " - " + QString::number(good.getPrice()) + "₽"));
 
-        // Создаем кнопку "Удалить"
         QPushButton *removeButton = new QPushButton("Удалить", this);
         itemLayout->addWidget(removeButton);
         itemWidget->setLayout(itemLayout);
 
-        // Добавляем контейнер в макет товаров
         goodsLayout->addWidget(itemWidget);
 
-        // Обрабатываем удаление товара
         connect(removeButton, &QPushButton::clicked, [this, good, itemWidget]() {
             removeGood(good, itemWidget);
         });
     }
 
     scrollContent->setLayout(goodsLayout);
-    scrollArea->setWidget(scrollContent); // Устанавливаем новый контейнер в ScrollArea
+    scrollArea->setWidget(scrollContent);
 
-    // Добавляем ScrollArea в основной layout
     mainLayout->addWidget(scrollArea);
     setLayout(mainLayout);
 }
 
 BagDialog::~BagDialog() {
-    // Деструктор
+
 }
 
 void BagDialog::removeGood(const Good &good, QWidget *itemWidget) {
-    // Удаляем товар из корзины
+
     goods->removeOne(good);
 
-    // Удаляем элемент из ScrollArea
     delete itemWidget;
 }

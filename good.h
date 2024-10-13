@@ -6,11 +6,9 @@
 
 class Good {
 public:
-    // Конструктор с параметрами для инициализации товара
     Good(int id, const QString& name, int categoryId, double price, const QString& description, double weight)
         : id(id), name(name), categoryId(categoryId), price(price), description(description), weight(weight) {}
 
-    // Геттеры для получения данных
     int getId() const {
         return id;
     }
@@ -36,16 +34,16 @@ public:
     }
 
     bool operator==(const Good &other) const {
-        return this->id == other.id;  // Например, сравнение по ID
+        return this->id == other.id;
     }
 
 private:
-    int id;               // Уникальный идентификатор товара
-    QString name;         // Название товара
-    int categoryId;       // Идентификатор категории товара
-    double price;         // Цена товара
-    QString description;  // Описание товара
-    double weight;        // Вес товара
+    int id;
+    QString name;
+    int categoryId;
+    double price;
+    QString description;
+    double weight;
 };
 
 #endif // GOOD_H

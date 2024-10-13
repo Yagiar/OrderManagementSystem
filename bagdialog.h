@@ -17,12 +17,12 @@ public:
     ~BagDialog();
 
 private slots:
-    void removeGood(const Good &good, QWidget *itemWidget); // Изменяем тип параметра
+    void removeGood(const Good &good, QWidget *itemWidget);
 
 private:
-    QList<Good> *goods; // Указатель на список выбранных товаров
-    QScrollArea *scrollArea; // ScrollArea для отображения товаров
-    QWidget *scrollContent; // Контейнер для ScrollArea
+    QList<Good> *goods;
+    QScrollArea *scrollArea;
+    QWidget *scrollContent;
 };
 
 #endif // BAGDIALOG_H

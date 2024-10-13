@@ -14,33 +14,27 @@ CreateOrderDialog::CreateOrderDialog(QList<Good> *choosenGoods, QWidget *parent)
     setWindowTitle("Оформление заказа");
     ui->setupUi(this);
 
-    // Создаем контейнер для товаров
     QWidget *scrollContent = new QWidget(this);
     QVBoxLayout *goodsLayout = new QVBoxLayout(scrollContent);
 
     double totalPrice = 0.0; // Сумма заказа
 
-    // Заполняем ScrollArea товарами из choosenGoods
     for (int i = 0; i < goods->count(); ++i) {
         const Good &good = goods->at(i);
 
-        // Создаем виджет для отображения товара
         QLabel *goodLabel = new QLabel(QString::number(i + 1) + ". " +
                                            good.getName() + " - " +
                                            QString::number(good.getPrice()) + "₽", this);
         goodsLayout->addWidget(goodLabel);
 
-        // Увеличиваем общую цену
         totalPrice += good.getPrice();
     }
 
-    // Добавляем общий прайс
     QLabel *totalPriceLabel = new QLabel("Общая сумма заказа: " + QString::number(totalPrice) + "₽", this);
     goodsLayout->addWidget(totalPriceLabel);
 
-    // Устанавливаем Layout в scrollAreaGoods
     scrollContent->setLayout(goodsLayout);
-    ui->scrollAreaGoods->setWidget(scrollContent); // Используем ваш существующий scrollArea
+    ui->scrollAreaGoods->setWidget(scrollContent);
 }
 
 CreateOrderDialog::~CreateOrderDialog()

@@ -3,20 +3,18 @@
 #include "database.h"
 #include <QDebug>
 
-void CreatedState::changeState(Order* order, const QString& orderDescription,
+void CreatedState::Create(Order* order, const QString& orderDescription,
                                 int stateId, int priorityId, const QList<Good>& goods) {
     Database db;
     if (db.open()) {
         db.InsertOrder(db.GetUserIdByUsername(order->getUsername()), orderDescription, order->getOrderType(), stateId, priorityId, goods);
-        order->setState(new CreatedState ());
+        order->setState(new CreatedState());
     } else {
         qDebug() << "Database connection error.";
     }
 }
 
-// Implementation of ProcessingState
-void ProcessingState::changeState(Order* order, const QString& orderDescription,
-                                   int stateId, int priorityId, const QList<Good>& goods) {
+void ProcessingState::Update(Order* order) {
     Database db;
     if (db.open()) {
         db.UpdateOrderState(order->getOrderId(), 2);
@@ -26,9 +24,7 @@ void ProcessingState::changeState(Order* order, const QString& orderDescription,
     }
 }
 
-// Implementation of CompletedState
-void CompletedState::changeState(Order* order, const QString& orderDescription,
-                                  int stateId, int priorityId, const QList<Good>& goods) {
+void CompletedState::Finish(Order* order) {
     Database db;
     if (db.open()) {
         db.UpdateOrderState(order->getOrderId(), 3);

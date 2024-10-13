@@ -44,7 +44,6 @@ public:
         }
     }
 
-    // Метод для проверки существования пользователя по username и email
     bool userExists(const QString& username, const QString& email, QString& result) {
         QSqlQuery query;
         query.prepare("SELECT COUNT(*) FROM users WHERE username = :username OR email = :email");
@@ -80,7 +79,6 @@ public:
         return false;
     }
     int GetUserIdByUsername(const QString& username) {
-        // Предполагаем, что у вас есть открытое соединение с базой данных
         QSqlQuery query;
 
         query.prepare("SELECT user_id FROM users WHERE username = :username");
@@ -97,7 +95,6 @@ public:
 
         return -1;
     }
-    // Метод для добавления пользователя
     bool addUser(const QString& username, const QString& passwordHash, const QString& email) {
         QString result;
         if (userExists(username, email, result)) {
@@ -120,7 +117,6 @@ public:
         return true;
     }
 
-    // Метод для логина пользователя
     bool loginUser(const QString& username, const QString& passwordHash) {
         QSqlQuery query;
         query.prepare("SELECT password_hash FROM users WHERE username = :username AND role = 'user'");
@@ -189,7 +185,6 @@ public:
 
     bool InsertOrder(int userId, const QString& orderDescription, const QString& orderType,
                      int stateId, int priorityId, const QList<Good>& goods) {
-        // Вставляем заказ в таблицу orders
         QSqlQuery query;
         query.prepare("INSERT INTO orders (user_id, order_description, order_type, state_id, priority_id) "
                       "VALUES (:userId, :orderDescription, :orderType, :stateId, :priorityId)");
@@ -239,7 +234,6 @@ public:
 private:
     QSqlDatabase db;
 
-    // Метод для выполнения SQL-запроса
     QSqlQuery executeQuery(const QString& queryStr) {
         QSqlQuery query;
         if (!query.exec(queryStr)) {

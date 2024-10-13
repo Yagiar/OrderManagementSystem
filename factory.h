@@ -3,41 +3,46 @@
 #include "order.h"
 #include "good.h"
 
-// Фабричный класс для создания объектов Order
 class Factory {
 public:
     virtual ~Factory() {};
 
-    // Чисто виртуальный метод фабричного создания
-
-
-    // Метод для выполнения операции с заказом
     void CreationOfOrder(const QString& orderDescription,
                       int stateId, int priorityId, const QList<Good>& goods) {
-        // Используем фабричный метод для создания заказа
         Order* order = this->CreateOrder();
-        // Обрабатываем заказ
-        order->processOrder(orderDescription, stateId,priorityId,goods);
+        order->CreateOrder(orderDescription, stateId,priorityId,goods);
 
         delete order;
     }
+    Order* GetExistOrder(const int OrderId, OrderState* state) {
+        return this->CreateOrder(OrderId, state);
+    }
 private:
         virtual Order* CreateOrder() = 0;
+        virtual Order* CreateOrder(const int OrderId, OrderState* state) = 0;
+       // virtual Order* GetOrder(const int  OrderId, const int stateId, const int priorityId,const QString& OrderType,
+       //                            const QString& orderDescription, const QList<Good>& goods );
 };
 
-// Конкретная фабрика для создания цифровых заказов
 class DigitalFactory : public Factory {
 public:
     Order* CreateOrder() override {
         return new DigitalOrder();
     }
+    Order* CreateOrder(const int OrderId, OrderState* state) override
+    {
+        return new DigitalOrder(OrderId,state);
+    }
 };
 
-// Конкретная фабрика для создания физических заказов
 class PhysicalFactory : public Factory {
 public:
     Order* CreateOrder() override {
         return new PhysicalOrder();
+    }
+    Order* CreateOrder(const int OrderId, OrderState* state) override
+    {
+        return new DigitalOrder(OrderId, state);
     }
 };
 #endif // FACTORY_H

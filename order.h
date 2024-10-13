@@ -6,55 +6,66 @@
 #include "good.h"
 #include "orderstate.h"
 
-// Forward declaration of the OrderState class
 class OrderState;
 
-extern QString username;  // Using a global variable, but better to refactor
+extern QString username;
 
 class Order {
 private:
-    OrderState* state;  // Raw pointer for managing state
+    OrderState* state;
      int orderId;
 
 public:
     virtual ~Order() {
-        delete state;  // Don't forget to delete the state
+        delete state;
     }
 
     void setState(OrderState* newState) {
-        delete state;  // Delete the previous state
-        state = newState;  // Set the new state
+        delete state;
+        state = newState;
     }
 
     int getOrderId() const {
         return orderId;
     }
 
-    // Метод для установки идентификатора заказа
     void setOrderId(int id) {
         orderId = id;
     }
-    void processOrder(const QString& orderDescription, int stateId, int priorityId, const QList<Good>& goods) {
+    void processOrder() {
+
+    }
+    void CreateOrder(const QString& orderDescription, int stateId, int priorityId, const QList<Good>& goods){
         if (state) {
-            state->changeState(this, orderDescription, stateId, priorityId, goods);
+            state->Create(this, orderDescription, stateId, priorityId, goods);
         }
     }
-
+    void UpdateOrder(){
+        if(state)
+        {
+            state->Update(this);
+        }
+    }
+    void FinishOrder(){
+        if(state)
+        {
+            state->Finish(this);
+        }
+    }
 
     virtual QString getOrderType() = 0;
     QString getUsername() const { return username; }
 };
 
-// Physical order class
 class PhysicalOrder : public Order {
 public:
     PhysicalOrder() {
-        setState(new CreatedState());  // Set the initial state
+        setState(new CreatedState());
     }
 
-    PhysicalOrder(int id) {
-        setOrderId(id); // Устанавливаем идентификатор заказа
-        setState(new CreatedState());
+    PhysicalOrder(int id, OrderState* state) {
+        setOrderId(id);
+        setState(state);
     }
 
     QString getOrderType() override {
@@ -66,12 +77,12 @@ public:
 class DigitalOrder : public Order {
 public:
     DigitalOrder() {
-        setState(new CreatedState());  // Set the initial state
+        setState(new CreatedState());
     }
 
-    DigitalOrder(int id) {
-        setOrderId(id); // Устанавливаем идентификатор заказа
-        setState(new CreatedState());
+    DigitalOrder(int id, OrderState* state) {
+        setOrderId(id);
+        setState(state);
     }
     QString getOrderType() override {
         return "Digital";
