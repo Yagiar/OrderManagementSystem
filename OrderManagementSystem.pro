@@ -17,6 +17,7 @@ SOURCES += \
     mainwindow.cpp \
     order.cpp \
     orderlistwindow.cpp \
+    orderprocessingstrategy.cpp \
     orderstate.cpp \
     startWindow.cpp \
     user.cpp
@@ -30,6 +31,7 @@ HEADERS += \
     mainwindow.h \
     order.h \
     orderlistwindow.h \
+    orderprocessingstrategy.h \
     orderstate.h \
     startWindow.h \
     user.h

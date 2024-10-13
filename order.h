@@ -5,6 +5,7 @@
 #include <QList>
 #include "good.h"
 #include "orderstate.h"
+#include "orderprocessingstrategy.h"
 
 class OrderState;
 
@@ -12,22 +13,30 @@ extern QString username;
 
 class Order {
 private:
+    OrderProcessingStrategy* processingStrategy;  // Стратегия для обработки заказа
     OrderState* state;
     int orderId;
     QString orderDescription;  // Исправлено на правильное написание переменной
     QList<Good> goods;
     QString username;
-    Order* curOrder;
 public:
     virtual ~Order() {
-        delete state; // Освобождаем память для состояния
+        delete state;
+        delete processingStrategy;        // Освобождаем память
     }
 
     void setState(OrderState* newState) {
-        if (newState != nullptr) {  // Проверка на nullptr
-            //delete state;            // Освобождаем память для предыдущего состояния
-            state = newState;       // Устанавливаем новое состояние
+        if (newState != nullptr) {
+            //delete state;
+            state = newState;
         }
+    }
+
+    void setProcessingStrategy(OrderProcessingStrategy* strategy) {
+        if (processingStrategy != nullptr) {
+            delete processingStrategy;  // Освобождаем предыдущую стратегию
+        }
+        processingStrategy = strategy;
     }
 
     int getOrderId() const {
@@ -67,6 +76,12 @@ public:
     void finishOrder() {
         if (state) {
             state->Finish(this); // Вызываем метод завершения состояния
+        }
+    }
+
+    void processOrderAccordingStrategy() {
+        if (processingStrategy != nullptr) {
+            processingStrategy->process(this);  // Применяем стратегию для обработки
         }
     }
 
