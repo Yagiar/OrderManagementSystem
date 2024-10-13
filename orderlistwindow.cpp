@@ -49,6 +49,7 @@ OrderListWindow::OrderListWindow(QWidget *parent)
 OrderListWindow::~OrderListWindow()
 {
     delete ui;
+    this->close();
 }
 
 void OrderListWindow::loadOrders() {

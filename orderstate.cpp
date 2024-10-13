@@ -4,10 +4,10 @@
 #include <QDebug>
 
 void CreatedState::Create(Order* order, const QString& orderDescription,
-                                int stateId, int priorityId, const QList<Good>& goods) {
+                                int stateId, int priorityId, const QList<Good>& goods, QString& username) {
     Database db;
     if (db.open()) {
-        db.InsertOrder(db.GetUserIdByUsername(order->getUsername()), orderDescription, order->getOrderType(), stateId, priorityId, goods);
+        db.InsertOrder(db.GetUserIdByUsername(username), orderDescription, order->getOrderType(), stateId, priorityId, goods);
         order->setState(new CreatedState());
     } else {
         qDebug() << "Database connection error.";

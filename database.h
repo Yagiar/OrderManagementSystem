@@ -250,6 +250,20 @@ public:
             int stateId = query.value("state_id").toInt();
             int priorityId = query.value("priority_id").toInt();
 
+
+            // Получаем username из базы данных по userId
+            QString curUser;
+            QSqlQuery userQuery;
+            userQuery.prepare("SELECT username FROM users WHERE user_id = :userId");
+            userQuery.bindValue(":userId", userId);
+
+            if (userQuery.exec() && userQuery.next()) {
+                curUser = userQuery.value("username").toString();
+            } else {
+                qDebug() << "Не удалось получить username для user_id:" << userId;
+                continue; // Пропускаем этот заказ, если не нашли пользователя
+            }
+
             // Используем фабрику для создания заказа
             Factory* factory = nullptr;
 
@@ -261,7 +275,7 @@ public:
 
             if (factory) {
                 // Создаем заказ через фабрику
-                Order* order = factory->getExistOrder(orderId, new CreatedState(), orderDescription); // Укажите правильный начальный state
+                Order* order = factory->getExistOrder(orderId, new CreatedState(), orderDescription, curUser); // Укажите правильный начальный state
                 //order->setOrder(orderDescription, stateId, priorityId, getGoodsByOrderId(orderId));
                 ordersList.append(order); // Добавляем заказ в список
                 delete factory; // Удаляем фабрику

@@ -13,7 +13,7 @@ public:
 
     // Методы, которые могут быть унаследованы
     virtual void Create(Order* order, const QString& orderDescription,
-                        int stateId, int priorityId, const QList<Good>& goods) {}
+                        int stateId, int priorityId, const QList<Good>& goods, QString& username) {}
     virtual void Update(Order* order) {}
     virtual void Finish(Order* order) {}
 };
@@ -22,7 +22,7 @@ public:
 class CreatedState : public OrderState {
 public:
     void Create(Order* order, const QString& orderDescription,
-                int stateId, int priorityId, const QList<Good>& goods) override;
+                int stateId, int priorityId, const QList<Good>& goods, QString& username) override;
 };
 
 // Класс состояния Processing
