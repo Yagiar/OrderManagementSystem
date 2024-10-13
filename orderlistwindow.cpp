@@ -29,7 +29,7 @@ OrderListWindow::OrderListWindow(QWidget *parent)
 
     closeButton = new QPushButton("Закрыть", this);
     layout->addWidget(closeButton);
-    connect(closeButton, &QPushButton::clicked, this, &QMainWindow::close);
+    connect(closeButton, &QPushButton::clicked, this, &QCoreApplication::quit);
 
     loadOrders();
 }
@@ -70,7 +70,7 @@ void OrderListWindow::loadOrders() {
 void OrderListWindow::showOrderGoods(int row) {
     Order* selectedOrder = orders[row];
     QList<Good> goodsList = selectedOrder->getGoods();
-    QString goodsDetails = "Товары в заказе:\n";
+    QString goodsDetails = QString("Товары в заказе %1:\n").arg(selectedOrder->getOrderId());
     for (const Good& good : goodsList) {
         goodsDetails += "- " + good.getName() + "\n";
     }
