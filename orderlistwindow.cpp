@@ -11,45 +11,32 @@ OrderListWindow::OrderListWindow(QWidget *parent)
     , ui(new Ui::OrderListWindow)
 {
     ui->setupUi(this);
-
-    // Устанавливаем размер окна
     resize(800, 600);
     setWindowTitle("Список заказов");
 
-    // Создаем центральный виджет и компоновку
     QWidget *centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
     QVBoxLayout *layout = new QVBoxLayout(centralWidget);
 
-    // Создаем таблицу для отображения заказов
     tableView = new QTableView(this);
     model = new QStandardItemModel(this);
+    model->setColumnCount(5); // Увеличиваем количество столбцов
+    model->setHorizontalHeaderLabels(QStringList() << "Order ID" << "Username" << "Description" << "Order Type" << "Actions");
 
-    model->setColumnCount(4);
-    model->setHorizontalHeaderLabels(QStringList() << "Order ID" << "Username" << "Description" << "Order Type");
-
-    // Устанавливаем модель для таблицы
     tableView->setModel(model);
-
-    // Установка адаптивного размера столбцов
     tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-
-    // Добавляем таблицу на компоновку
     layout->addWidget(tableView);
 
-    // Создаем кнопку закрытия
     closeButton = new QPushButton("Закрыть", this);
     layout->addWidget(closeButton);
     connect(closeButton, &QPushButton::clicked, this, &QMainWindow::close);
 
-    // Заполняем таблицу данными
     loadOrders();
 }
 
 OrderListWindow::~OrderListWindow()
 {
     delete ui;
-    this->close();
 }
 
 void OrderListWindow::loadOrders() {
@@ -65,10 +52,30 @@ void OrderListWindow::loadOrders() {
             model->setItem(i, 1, new QStandardItem(order->getUsername()));
             model->setItem(i, 2, new QStandardItem(order->getOrderDescription()));
             model->setItem(i, 3, new QStandardItem(order->getOrderType()));
+
+            // Создаем кнопку "Показать товары"
+            QPushButton *button = new QPushButton("Показать товары");
+            tableView->setIndexWidget(model->index(i, 4), button);
+
+            // Подключаем сигнал на нажатие кнопки
+            connect(button, &QPushButton::clicked, [this, i]() {
+                showOrderGoods(i);
+            });
         }
     } else {
         QMessageBox::critical(this, "Ошибка", "Не удалось открыть базу данных.");
     }
 }
 
-
+void OrderListWindow::showOrderGoods(int row) {
+    Order* selectedOrder = orders[row];
+    QList<Good> goodsList = selectedOrder->getGoods();
+    QString goodsDetails = "Товары в заказе:\n";
+    for (const Good& good : goodsList) {
+        goodsDetails += "- " + good.getName() + "\n";
+    }
+    if (goodsList.isEmpty()) {
+        goodsDetails = "Товары отсутствуют в данном заказе.";
+    }
+    QMessageBox::information(this, "Товары заказа", goodsDetails);
+}

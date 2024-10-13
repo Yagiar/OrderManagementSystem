@@ -7,6 +7,7 @@ release/main.o
 release/mainwindow.o
 release/order.o
 release/orderlistwindow.o
+release/orderprocessingstrategy.o
 release/orderstate.o
 release/startWindow.o
 release/user.o

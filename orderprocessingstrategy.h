@@ -1,7 +1,9 @@
 #ifndef ORDERPROCESSINGSTRATEGY_H
 #define ORDERPROCESSINGSTRATEGY_H
-#include "order.h"
+
 #include <QDebug>
+#include "order.h" // Включите здесь header, чтобы избежать недоступности
+
 class OrderProcessingStrategy {
 public:
     virtual ~OrderProcessingStrategy() {}
@@ -10,26 +12,17 @@ public:
 
 class RegularOrderProcessingStrategy: public OrderProcessingStrategy {
 public:
-    void process(Order* order) override {
-        // Логика обработки обычного заказа
-        qDebug() << "Обычная стратегия" << order->getOrderId();
-    }
+    void process(Order* order) override;
 };
 
 class ExpressOrderProcessingStrategy: public OrderProcessingStrategy {
 public:
-    void process(Order* order) override {
-        // Логика обработки экспресс заказа
-        qDebug() << "Экспресс стратегия" << order->getOrderId();
-    }
+    void process(Order* order) override;
 };
 
 class CourierOrderProcessingStrategy: public OrderProcessingStrategy {
 public:
-    void process(Order* order) override {
-        // Логика обработки для заказа курьером
-        qDebug() << "Курьер стратегия" << order->getOrderId() << "по почте";
-    }
+    void process(Order* order) override;
 };
 
 #endif // ORDERPROCESSINGSTRATEGY_H

@@ -37,7 +37,7 @@ public:
         centralwidget->setObjectName("centralwidget");
         tableView = new QTableView(centralwidget);
         tableView->setObjectName("tableView");
-        tableView->setGeometry(QRect(20, 40, 761, 491));
+        tableView->setGeometry(QRect(0, 10, 791, 541));
         OrderListWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(OrderListWindow);
         menubar->setObjectName("menubar");

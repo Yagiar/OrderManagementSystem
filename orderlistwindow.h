@@ -23,6 +23,8 @@ public:
 
 private:
     void loadOrders(); // Метод для загрузки заказов из базы данных
+private slots:
+    void showOrderGoods(int row); // Добавьте это
 
 private:
     Ui::OrderListWindow *ui;

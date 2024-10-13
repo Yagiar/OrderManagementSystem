@@ -7,6 +7,7 @@ debug/main.o
 debug/mainwindow.o
 debug/order.o
 debug/orderlistwindow.o
+debug/orderprocessingstrategy.o
 debug/orderstate.o
 debug/startWindow.o
 debug/user.o

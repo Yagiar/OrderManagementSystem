@@ -17,14 +17,14 @@ public:
     }
 
     // Метод для получения существующего заказа
-    Order* getExistOrder(int orderId, OrderState* state, QString& orderDiscription, QString& username) {
-        return createOrder(orderId, state, orderDiscription, username);
+    Order* getExistOrder(int orderId, OrderState* state,OrderProcessingStrategy* strategy, QString& orderDiscription, QString& username, QList<Good> goods) {
+        return createOrder(orderId, state,strategy, orderDiscription, username, goods);
     }
 
 private:
     // Чисто виртуальные функции для создания заказа
     virtual Order* createOrder() = 0;
-    virtual Order* createOrder(int orderId, OrderState* state, QString& orderDiscription, QString& username) = 0;
+    virtual Order* createOrder(int orderId, OrderState* state,OrderProcessingStrategy* strategy, QString& orderDiscription, QString& username, QList<Good> goods) = 0;
 };
 
 class DigitalFactory : public Factory {
@@ -33,8 +33,8 @@ public:
         return new DigitalOrder(); // Создаем новый цифровой заказ
     }
 
-    Order* createOrder(int orderId, OrderState* state, QString& orderDiscription, QString& username) override {
-        return new DigitalOrder(orderId, state, orderDiscription, username); // Создаем существующий цифровой заказ
+    Order* createOrder(int orderId, OrderState* state,OrderProcessingStrategy* strategy, QString& orderDiscription, QString& username, QList<Good> goods) override {
+        return new DigitalOrder(orderId, state, strategy, orderDiscription, username, goods); // Создаем существующий цифровой заказ
     }
 };
 
@@ -44,8 +44,8 @@ public:
         return new PhysicalOrder(); // Создаем новый физический заказ
     }
 
-    Order* createOrder(int orderId, OrderState* state, QString& orderDiscription, QString& username) override {
-        return new PhysicalOrder(orderId, state, orderDiscription, username); // Создаем существующий физический заказ
+    Order* createOrder(int orderId, OrderState* state,OrderProcessingStrategy* strategy ,QString& orderDiscription, QString& username, QList<Good> goods) override {
+        return new PhysicalOrder(orderId, state, strategy, orderDiscription, username, goods); // Создаем существующий физический заказ
     }
 };
 

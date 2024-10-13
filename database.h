@@ -9,6 +9,8 @@
 #include <QMessageBox>
 #include "good.h"
 #include "factory.h"
+#include "orderstate.h"
+#include "orderprocessingstrategy.h"
 
 class Database {
 public:
@@ -275,10 +277,35 @@ public:
 
             if (factory) {
                 // Создаем заказ через фабрику
-                Order* order = factory->getExistOrder(orderId, new CreatedState(), orderDescription, curUser); // Укажите правильный начальный state
+                OrderState* curState;
+                OrderProcessingStrategy* curStrategy;
+
+                switch(stateId)
+                {
+                case 1:
+                    curState = new CreatedState();
+                case 2:
+                    curState = new ProcessingState();
+                case 3:
+                    curState = new CompletedState();
+                }
+
+                switch(stateId)
+                {
+                case 1:
+                    curStrategy = new RegularOrderProcessingStrategy();
+                case 2:
+                    curStrategy = new ExpressOrderProcessingStrategy();
+                case 3:
+                    curStrategy = new CourierOrderProcessingStrategy();
+                }
+                Order* order = factory->getExistOrder(orderId, curState,curStrategy, orderDescription, curUser,
+                                                      getGoodsByOrderId(orderId)); // Укажите правильный начальный state
                 //order->setOrder(orderDescription, stateId, priorityId, getGoodsByOrderId(orderId));
                 ordersList.append(order); // Добавляем заказ в список
                 delete factory; // Удаляем фабрику
+                delete curState;
+                delete curStrategy;
             }
         }
 
