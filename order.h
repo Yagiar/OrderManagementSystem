@@ -13,79 +13,88 @@ extern QString username;
 class Order {
 private:
     OrderState* state;
-     int orderId;
-
+    int orderId;
+    QString orderDescription;  // Исправлено на правильное написание переменной
+    QList<Good> goods;
+    Order* curOrder;
 public:
     virtual ~Order() {
-        delete state;
+        delete state; // Освобождаем память для состояния
     }
 
     void setState(OrderState* newState) {
-        delete state;
-        state = newState;
+        delete state; // Освобождаем память для предыдущего состояния
+        state = newState; // Устанавливаем новое состояние
     }
 
     int getOrderId() const {
-        return orderId;
+        return orderId; // Получаем ID заказа
     }
 
     void setOrderId(int id) {
-        orderId = id;
+        orderId = id; // Устанавливаем ID заказа
     }
-    void processOrder() {
 
+    QString getOrderDescription() const {
+        return orderDescription; // Возвращаем описание заказа
     }
-    void CreateOrder(const QString& orderDescription, int stateId, int priorityId, const QList<Good>& goods){
+
+    void setOrderDescription(const QString& description) {
+        orderDescription = description; // Устанавливаем описание заказа
+    }
+    // Метод для создания заказа
+    void createOrder(const QString& orderDescription, int stateId, int priorityId, const QList<Good>& goods) {
         if (state) {
-            state->Create(this, orderDescription, stateId, priorityId, goods);
+            state->Create(this, orderDescription, stateId, priorityId, goods); // Вызываем метод состояния
         }
     }
-    void UpdateOrder(){
-        if(state)
-        {
-            state->Update(this);
-        }
-    }
-    void FinishOrder(){
-        if(state)
-        {
-            state->Finish(this);
+    void updateOrder() {
+        if (state) {
+            state->Update(this); // Вызываем метод обновления состояния
         }
     }
 
-    virtual QString getOrderType() = 0;
-    QString getUsername() const { return username; }
+    void finishOrder() {
+        if (state) {
+            state->Finish(this); // Вызываем метод завершения состояния
+        }
+    }
+
+    virtual QString getOrderType() const = 0; // Сделаем этот метод константным
+    QString getUsername() const { return username; } // Получаем имя пользователя
 };
 
 class PhysicalOrder : public Order {
 public:
     PhysicalOrder() {
-        setState(new CreatedState());
+        setState(new CreatedState()); // Устанавливаем начальное состояние
     }
 
-    PhysicalOrder(int id, OrderState* state) {
+    PhysicalOrder(int id, OrderState* state, const QString& orderDescription) {
         setOrderId(id);
-        setState(state);
+        setOrderDescription(orderDescription); // Устанавливаем описание заказа
+        setState(state); // Устанавливаем состояние
     }
 
-    QString getOrderType() override {
-        return "Physical";
+    QString getOrderType() const override { // Сделаем этот метод константным
+        return "Physical"; // Тип заказа
     }
 };
 
-// Digital order class
 class DigitalOrder : public Order {
 public:
     DigitalOrder() {
-        setState(new CreatedState());
+        setState(new CreatedState()); // Устанавливаем начальное состояние
     }
 
-    DigitalOrder(int id, OrderState* state) {
+    DigitalOrder(int id, OrderState* state, const QString& orderDescription) {
         setOrderId(id);
-        setState(state);
+        setOrderDescription(orderDescription); // Устанавливаем описание заказа
+        setState(state); // Устанавливаем состояние
     }
-    QString getOrderType() override {
-        return "Digital";
+
+    QString getOrderType() const override { // Сделаем этот метод константным
+        return "Digital"; // Тип заказа
     }
 };
 

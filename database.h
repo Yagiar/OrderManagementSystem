@@ -8,6 +8,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include "good.h"
+#include "factory.h"
 
 class Database {
 public:
@@ -231,8 +232,90 @@ public:
             qDebug() << "Состояние заказа с ID" << orderId << "обновлено на" << newStateId;
         }
     }
+    QList<Order*> getAllOrders() {
+        QList<Order*> ordersList;
+        QSqlQuery query;
+
+        // Получаем все заказы
+        if (!query.exec("SELECT order_id, user_id, order_description, order_type, state_id, priority_id FROM orders")) {
+            qWarning() << "Error retrieving orders:" << query.lastError().text();
+            return ordersList; // Возвращаем пустой список в случае ошибки
+        }
+
+        while (query.next()) {
+            int orderId = query.value("order_id").toInt();
+            int userId = query.value("user_id").toInt();
+            QString orderDescription = query.value("order_description").toString();
+            QString orderType = query.value("order_type").toString();
+            int stateId = query.value("state_id").toInt();
+            int priorityId = query.value("priority_id").toInt();
+
+            // Используем фабрику для создания заказа
+            Factory* factory = nullptr;
+
+            if (orderType == "Физический") {
+                factory = new PhysicalFactory();
+            } else if (orderType == "Цифровой") {
+                factory = new DigitalFactory();
+            }
+
+            if (factory) {
+                // Создаем заказ через фабрику
+                Order* order = factory->getExistOrder(orderId, new CreatedState(), orderDescription); // Укажите правильный начальный state
+                //order->setOrder(orderDescription, stateId, priorityId, getGoodsByOrderId(orderId));
+                ordersList.append(order); // Добавляем заказ в список
+                delete factory; // Удаляем фабрику
+            }
+        }
+
+        return ordersList; // Возвращаем список заказов
+    }
+    QList<Good> getGoodsByOrderId(int orderId) {
+        QList<Good> goodsList;
+        QSqlQuery query;
+
+        // Получаем все good_id для данного order_id
+        query.prepare("SELECT good_id FROM goods_orders WHERE order_id = :orderId");
+        query.bindValue(":orderId", orderId);
+
+        if (!query.exec()) {
+            qWarning() << "Error retrieving goods ids:" << query.lastError().text();
+            return goodsList; // Возвращаем пустой список в случае ошибки
+        }
+
+        // Для каждого good_id, получаем информацию о товаре
+        while (query.next()) {
+            int goodId = query.value(0).toInt();
+
+            QSqlQuery goodQuery;
+            goodQuery.prepare("SELECT id, name, category_id, price, description, weight FROM goods WHERE id = :goodId");
+            goodQuery.bindValue(":goodId", goodId);
+
+            if (!goodQuery.exec()) {
+                qWarning() << "Error retrieving good details:" << goodQuery.lastError().text();
+                continue; // Переходим к следующему good_id в случае ошибки
+            }
+
+            while (goodQuery.next()) {
+                // Создаем объект Good с данными из базы
+                Good good(
+                    goodQuery.value("id").toInt(),
+                    goodQuery.value("name").toString(),
+                    goodQuery.value("category_id").toInt(),
+                    goodQuery.value("price").toDouble(),
+                    goodQuery.value("description").toString(),
+                    goodQuery.value("weight").toDouble()
+                    );
+
+                goodsList.append(good); // Добавляем товар в список
+            }
+        }
+
+        return goodsList; // Возвращаем список товаров
+    }
 private:
     QSqlDatabase db;
+
 
     QSqlQuery executeQuery(const QString& queryStr) {
         QSqlQuery query;

@@ -16,6 +16,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     order.cpp \
+    orderlistwindow.cpp \
     orderstate.cpp \
     startWindow.cpp \
     user.cpp
@@ -28,6 +29,7 @@ HEADERS += \
     good.h \
     mainwindow.h \
     order.h \
+    orderlistwindow.h \
     orderstate.h \
     startWindow.h \
     user.h
@@ -36,6 +38,7 @@ FORMS += \
     bagdialog.ui \
     createorderdialog.ui \
     mainwindow.ui \
+    orderlistwindow.ui \
     startWindow.ui
 
 TRANSLATIONS += \

@@ -6,6 +6,7 @@ release/good.o
 release/main.o
 release/mainwindow.o
 release/order.o
+release/orderlistwindow.o
 release/orderstate.o
 release/startWindow.o
 release/user.o
@@ -13,4 +14,5 @@ release/qrc_qmake_qmake_qm_files.o
 release/moc_bagdialog.o
 release/moc_createorderdialog.o
 release/moc_mainwindow.o
+release/moc_orderlistwindow.o
 release/moc_startWindow.o

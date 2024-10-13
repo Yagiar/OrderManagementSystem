@@ -49,7 +49,7 @@ void CreateOrderDialog::on_pushButton_clicked()
     case 0:
         {
             Factory* factory = new DigitalFactory();
-            factory->CreationOfOrder(ui->textEditDescriptionOrder->toPlainText(), 1, ui->comboBoxPriorityOrder->currentIndex()+1, *goods);
+            factory->creationOfOrder(ui->textEditDescriptionOrder->toPlainText(), 1, ui->comboBoxPriorityOrder->currentIndex()+1, *goods);
 
             delete factory;
             break;
@@ -58,7 +58,7 @@ void CreateOrderDialog::on_pushButton_clicked()
     case 1:
         {
             Factory* factory = new PhysicalFactory();
-            factory->CreationOfOrder(ui->textEditDescriptionOrder->toPlainText(), 1, ui->comboBoxPriorityOrder->currentIndex()+1, *goods);
+            factory->creationOfOrder(ui->textEditDescriptionOrder->toPlainText(), 1, ui->comboBoxPriorityOrder->currentIndex()+1, *goods);
 
             delete factory;
             break;

@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <database.h>
 #include "mainwindow.h"
+#include "orderlistwindow.h"
 
 extern QString username;
 
@@ -46,11 +47,14 @@ void startWindow::on_butLogin_clicked()
             } else {
                 if(db.loginUserWithRole(ui->tbUsername->text(), hashPassword(ui->tbPassword->text())))
                 {
-                   // this.close();
+
+                    this->close();
                     username = ui->tbUsername->text();
-                    // показываем новую форму
-                    //пока что так
-                    QMessageBox::information(this, "Инфа", "Вы успешно вошли под манагером: " + username);
+                    OrderListWindow* orderListWindow = new OrderListWindow(this);
+                    orderListWindow->show();
+
+                   // QMessageBox::information(this, "Инфа", "Вы успешно вошли под манагером: " + username);
+
                 }
                 else
                 {
