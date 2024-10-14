@@ -1,16 +1,16 @@
 #include "orderprocessingstrategy.h"
-
-void RegularOrderProcessingStrategy::process(Order* order) {
+#include <QMessageBox>
+QString RegularOrderProcessingStrategy::process(Order* order) {
     // Логика обработки обычного заказа
-    qDebug() << "Обычная стратегия" << order->getOrderId();
+    return QString("Выполняется обработка обычного заказа");
 }
 
-void ExpressOrderProcessingStrategy::process(Order* order) {
+QString ExpressOrderProcessingStrategy::process(Order* order) {
     // Логика обработки экспресс заказа
-    qDebug() << "Экспресс стратегия" << order->getOrderId();
+    return QString( "Выполняется обработка эксрпесс заказа");
 }
 
-void CourierOrderProcessingStrategy::process(Order* order) {
+QString CourierOrderProcessingStrategy::process(Order* order) {
     // Логика обработки для заказа курьером
-    qDebug() << "Курьер стратегия" << order->getOrderId() << "по почте";
+    return QString("Выполняется обработка закза с курьером");
 }

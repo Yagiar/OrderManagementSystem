@@ -282,30 +282,52 @@ public:
 
                 switch(stateId)
                 {
+
                 case 1:
-                    curState = new CreatedState();
+                {
+                    curState = new CreatedState(QString::number(stateId));
+                    break;
+                }
                 case 2:
-                    curState = new ProcessingState();
+                {
+                    curState = new ProcessingState(QString::number(stateId));
+                    break;
+                }
                 case 3:
-                    curState = new CompletedState();
+                {
+                    curState = new CompletedState(QString::number(stateId));
+                    break;
                 }
 
-                switch(stateId)
+                }
+
+                switch(priorityId)
                 {
                 case 1:
-                    curStrategy = new RegularOrderProcessingStrategy();
+                {
+                    curStrategy = new RegularOrderProcessingStrategy(QString::number(priorityId));
+                    break;
+
+                }
                 case 2:
-                    curStrategy = new ExpressOrderProcessingStrategy();
+                {
+                    curStrategy = new ExpressOrderProcessingStrategy(QString::number(priorityId));
+                    break;
+                }
                 case 3:
-                    curStrategy = new CourierOrderProcessingStrategy();
+                {
+                    curStrategy = new CourierOrderProcessingStrategy(QString::number(priorityId));
+                    break;
+                }
+
                 }
                 Order* order = factory->getExistOrder(orderId, curState,curStrategy, orderDescription, curUser,
                                                       getGoodsByOrderId(orderId)); // Укажите правильный начальный state
                 //order->setOrder(orderDescription, stateId, priorityId, getGoodsByOrderId(orderId));
+                order->setState(curState);
+                order->setProcessingStrategy(curStrategy);
                 ordersList.append(order); // Добавляем заказ в список
                 delete factory; // Удаляем фабрику
-                delete curState;
-                delete curStrategy;
             }
         }
 

@@ -2,27 +2,43 @@
 #define ORDERPROCESSINGSTRATEGY_H
 
 #include <QDebug>
-#include "order.h" // Включите здесь header, чтобы избежать недоступности
+#include <QWidget>
+ // Включите здесь header, чтобы избежать недоступности
 
+class Order;
 class OrderProcessingStrategy {
 public:
+    QString name;
     virtual ~OrderProcessingStrategy() {}
-    virtual void process(Order* order) = 0;  // Метод для обработки заказа
+    virtual QString process(Order* order) = 0;  // Метод для обработки заказа
 };
 
 class RegularOrderProcessingStrategy: public OrderProcessingStrategy {
 public:
-    void process(Order* order) override;
+    RegularOrderProcessingStrategy(QString name) {
+        this->name = name;
+        qDebug() << "Создана стратегия обычного заказа";
+    }
+    QString process(Order* order) override;
 };
 
 class ExpressOrderProcessingStrategy: public OrderProcessingStrategy {
 public:
-    void process(Order* order) override;
+    ExpressOrderProcessingStrategy(QString name) {
+        this->name = name;
+
+        qDebug() << "Создана стратегия обычного заказа";
+    }
+    QString process(Order* order) override;
 };
 
 class CourierOrderProcessingStrategy: public OrderProcessingStrategy {
 public:
-    void process(Order* order) override;
+    CourierOrderProcessingStrategy(QString name) {
+        this->name = name;
+        qDebug() << "Создана стратегия обычного заказа";
+    }
+    QString process(Order* order) override;
 };
 
 #endif // ORDERPROCESSINGSTRATEGY_H

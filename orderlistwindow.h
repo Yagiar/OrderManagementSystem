@@ -7,7 +7,6 @@
 #include <QPushButton>
 #include <QStandardItemModel>
 #include "order.h"  // Убедитесь, что этот файл правильно определен
-#include "database.h" // Убедитесь, что этот файл правильно определен
 
 namespace Ui {
 class OrderListWindow;
@@ -25,6 +24,7 @@ private:
     void loadOrders(); // Метод для загрузки заказов из базы данных
 private slots:
     void showOrderGoods(int row); // Добавьте это
+    void processOrderForStrategyOnForm(int row);
 
 private:
     Ui::OrderListWindow *ui;

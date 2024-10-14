@@ -20,8 +20,8 @@ OrderListWindow::OrderListWindow(QWidget *parent)
 
     tableView = new QTableView(this);
     model = new QStandardItemModel(this);
-    model->setColumnCount(5); // Увеличиваем количество столбцов
-    model->setHorizontalHeaderLabels(QStringList() << "Order ID" << "Username" << "Description" << "Order Type" << "Actions");
+    model->setColumnCount(8); // Увеличиваем количество столбцов
+    model->setHorizontalHeaderLabels(QStringList() << "Order ID" << "Username" << "Description" << "Order Type" << "ShowGoods" << "Strategy");
 
     tableView->setModel(model);
     tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -52,20 +52,68 @@ void OrderListWindow::loadOrders() {
             model->setItem(i, 1, new QStandardItem(order->getUsername()));
             model->setItem(i, 2, new QStandardItem(order->getOrderDescription()));
             model->setItem(i, 3, new QStandardItem(order->getOrderType()));
+            model->setItem(i, 4, new QStandardItem(order->getState()->name));
+            model->setItem(i, 5, new QStandardItem(order->getProcessingStrategy()->name));
 
             // Создаем кнопку "Показать товары"
             QPushButton *button = new QPushButton("Показать товары");
-            tableView->setIndexWidget(model->index(i, 4), button);
+            tableView->setIndexWidget(model->index(i, 6), button);
 
             // Подключаем сигнал на нажатие кнопки
             connect(button, &QPushButton::clicked, [this, i]() {
                 showOrderGoods(i);
+            });
+
+            // Создаем кнопку "Обработать заказ по стратегии"
+            QPushButton *proccessOrderButton = new QPushButton("Обработать заказ по стратегии");
+            tableView->setIndexWidget(model->index(i, 7), proccessOrderButton);
+
+            connect(proccessOrderButton, &QPushButton::clicked, [this, i]() {
+                processOrderForStrategyOnForm(i);
             });
         }
     } else {
         QMessageBox::critical(this, "Ошибка", "Не удалось открыть базу данных.");
     }
 }
+void OrderListWindow::processOrderForStrategyOnForm(int row) {
+    Order* selectedOrder = orders[row];
+
+    // Инициализация фабрики в зависимости от типа заказа
+    Factory* factory = nullptr;
+    if (selectedOrder->getOrderType() == "Физический") {
+        factory = new PhysicalFactory();
+    } else if (selectedOrder->getOrderType() == "Цифровой") {
+        factory = new DigitalFactory();
+    }
+
+    // Проверка фабрики
+    if (factory) {
+        // Создание заказа через фабрику
+        OrderState* curState = selectedOrder->getState(); // Получаем текущее состояние заказа
+        OrderProcessingStrategy* curStrategy = selectedOrder->getProcessingStrategy(); // Получаем текущую стратегию
+
+        Order* order = factory->getExistOrder(
+            selectedOrder->getOrderId(),
+            curState,
+            curStrategy,
+            selectedOrder->getOrderDescription(),
+            selectedOrder->getUsername(),
+            selectedOrder->getGoods()
+            );
+
+        // Обрабатываем заказ с использованием стратегии
+        if (order) {
+            QString response = order->processOrderAccordingStrategy();
+            QMessageBox::information(this, "Стратегия", response);
+        }
+
+        delete factory; // Освобождаем память
+    } else {
+        QMessageBox::critical(this, "Ошибка", "Не удалось создать заказ через фабрику.");
+    }
+}
+
 
 void OrderListWindow::showOrderGoods(int row) {
     Order* selectedOrder = orders[row];
