@@ -17,16 +17,17 @@ public:
     Database() {
         db = QSqlDatabase::addDatabase("QPSQL");
 
-        /*
-         * db.setHostName("pgdb.uni-dubna.ru");
+
+        db.setHostName("pgdb.uni-dubna.ru");
         db.setUserName("student25"); // удаленно для униковской базы
         db.setPassword("Io_228_1337");
         db.setDatabaseName("student25");
-        */
-         db.setHostName("localhost");
-        db.setUserName("postgres"); // ЛОКАЛЬНО ДЛЯ НОУТБУКА(МАШИНЫ)
-        db.setPassword("Io_228");
-        db.setDatabaseName("postgres");
+
+
+        //  db.setHostName("localhost");
+        // db.setUserName("postgres"); // ЛОКАЛЬНО ДЛЯ НОУТБУКА(МАШИНЫ)
+        // db.setPassword("Io_228");
+        // db.setDatabaseName("postgres");
     }
     ~Database() {
         close();

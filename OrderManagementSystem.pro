@@ -1,8 +1,9 @@
-QT += core gui
-QT += sql
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT = core gui sql
 
-CONFIG += c++11
+CONFIG += c++17 cmdline
+CONFIG += sql_psql
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -47,6 +48,9 @@ TRANSLATIONS += \
     OrderManagementSystem_ru_RU.ts
 CONFIG += lrelease
 CONFIG += embed_translations
+
+
+LIBS += -L/Users/otrix/lib -lpostgresql
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
