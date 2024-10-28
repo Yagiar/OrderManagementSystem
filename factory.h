@@ -10,9 +10,9 @@ public:
 
     // Метод для создания нового заказа
     void creationOfOrder(const QString& orderDescription,
-                         int stateId, int priorityId, const QList<Good>& goods, QString username) {
+                         int stateId, int priorityId, const QList<Good>& goods, QString username, PaymentSystemAdapter* paymentSystem) {
         Order* order = createOrder(); // Используем чистую виртуальную функцию
-        order->createOrder(orderDescription, stateId, priorityId, goods, username);
+        order->createOrder(orderDescription, stateId, priorityId, goods, username, paymentSystem);
         delete order; // Освобождаем память
     }
 

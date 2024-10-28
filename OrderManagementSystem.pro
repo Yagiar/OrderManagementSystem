@@ -1,4 +1,5 @@
 QT = core gui sql
+LIBS += -L/Users/otrix/lib
 
 CONFIG += c++17 cmdline
 CONFIG += sql_psql
@@ -20,6 +21,7 @@ SOURCES += \
     orderlistwindow.cpp \
     orderprocessingstrategy.cpp \
     orderstate.cpp \
+    paymentsystemadapter.cpp \
     startWindow.cpp \
     user.cpp
 
@@ -34,6 +36,7 @@ HEADERS += \
     orderlistwindow.h \
     orderprocessingstrategy.h \
     orderstate.h \
+    paymentsystemadapter.h \
     startWindow.h \
     user.h
 
@@ -50,7 +53,6 @@ CONFIG += lrelease
 CONFIG += embed_translations
 
 
-LIBS += -L/Users/otrix/lib -lpostgresql
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

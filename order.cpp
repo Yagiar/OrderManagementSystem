@@ -73,9 +73,9 @@ void Order::setOrderDescription(const QString& description) {
     orderDescription = description; // Устанавливаем описание заказа
 }
 
-void Order::createOrder(const QString& orderDescription, int stateId, int priorityId, const QList<Good>& goods, QString& username) {
+void Order::createOrder(const QString& orderDescription, int stateId, int priorityId, const QList<Good>& goods, QString& username, PaymentSystemAdapter* paymentSystem) {
     if (state) {
-        state->Create(this, orderDescription, stateId, priorityId, goods, username); // Вызываем метод состояния
+        state->Create(this, orderDescription, stateId, priorityId, goods, username, paymentSystem); // Вызываем метод состояния
     }
 }
 
@@ -100,6 +100,14 @@ QString Order::processOrderAccordingStrategy() {
         return "";
     }
          // Применяем стратегию для обработки
+}
+
+bool Order::pay(PaymentSystemAdapter* adapter, double amount) {
+    if (adapter) {
+        return adapter->pay(amount); // Вызов метода pay у адаптера
+    }
+    else
+        return false;
 }
 
 // Реализация методов PhysicalOrder

@@ -4,6 +4,7 @@
 #include <QString>
 #include <QList>
 #include "good.h"
+#include "paymentsystemadapter.h"
 
 class Order;
 
@@ -13,7 +14,7 @@ public:
     QString name;
     // Методы, которые могут быть унаследованы
     virtual void Create(Order* order, const QString& orderDescription,
-                        int stateId, int priorityId, const QList<Good>& goods, QString& username) {}
+                        int stateId, int priorityId, const QList<Good>& goods, QString& username, PaymentSystemAdapter* paymentSystem) {}
     virtual void Update(Order* order) {}
     virtual void Finish(Order* order) {}
 };
@@ -26,7 +27,7 @@ public:
         this->name = name;
     }
     void Create(Order* order, const QString& orderDescription,
-                int stateId, int priorityId, const QList<Good>& goods, QString& username) override;
+                int stateId, int priorityId, const QList<Good>& goods, QString& username, PaymentSystemAdapter* paymentSystem) override;
 };
 
 // Класс состояния Processing

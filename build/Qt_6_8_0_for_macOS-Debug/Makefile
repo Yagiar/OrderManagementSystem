@@ -40,7 +40,7 @@ DISTNAME      = OrderManagementSystem1.0.0
 DISTDIR = /Users/otrix/code/OrderManagementSystem/build/Qt_6_8_0_for_macOS-Debug/.tmp/OrderManagementSystem1.0.0
 LINK          = /Library/Developer/CommandLineTools/usr/bin/clang++
 LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=12.0 -Wl,-rpath,@executable_path/../Frameworks -Wl,-rpath,/Users/otrix/Qt/6.8.0/macos/lib
-LIBS          = $(SUBLIBS) -F/Users/otrix/Qt/6.8.0/macos/lib -L/Users/otrix/lib -lpostgresql -framework QtWidgets -framework QtGui -framework AppKit -framework ImageIO -framework Metal -framework QtSql -framework QtCore -framework IOKit -framework DiskArbitration -framework UniformTypeIdentifiers -framework AGL -framework OpenGL   
+LIBS          = $(SUBLIBS) -F/Users/otrix/Qt/6.8.0/macos/lib -L/Users/otrix/lib -framework QtWidgets -framework QtGui -framework AppKit -framework ImageIO -framework Metal -framework QtSql -framework QtCore -framework IOKit -framework DiskArbitration -framework UniformTypeIdentifiers -framework AGL -framework OpenGL   
 AR            = /Library/Developer/CommandLineTools/usr/bin/ar cq
 RANLIB        = /Library/Developer/CommandLineTools/usr/bin/ranlib -s
 SED           = sed
@@ -63,6 +63,7 @@ SOURCES       = ../../bagdialog.cpp \
 		../../orderlistwindow.cpp \
 		../../orderprocessingstrategy.cpp \
 		../../orderstate.cpp \
+		../../paymentsystemadapter.cpp \
 		../../startWindow.cpp \
 		../../user.cpp qrc_qmake_qmake_qm_files.cpp \
 		moc_bagdialog.cpp \
@@ -81,6 +82,7 @@ OBJECTS       = bagdialog.o \
 		orderlistwindow.o \
 		orderprocessingstrategy.o \
 		orderstate.o \
+		paymentsystemadapter.o \
 		startWindow.o \
 		user.o \
 		qrc_qmake_qmake_qm_files.o \
@@ -312,6 +314,7 @@ DIST          = /Qt/6.8.0/macos/mkspecs/features/spec_pre.prf \
 		../../orderlistwindow.h \
 		../../orderprocessingstrategy.h \
 		../../orderstate.h \
+		../../paymentsystemadapter.h \
 		../../startWindow.h \
 		../../user.h ../../bagdialog.cpp \
 		../../createorderdialog.cpp \
@@ -324,6 +327,7 @@ DIST          = /Qt/6.8.0/macos/mkspecs/features/spec_pre.prf \
 		../../orderlistwindow.cpp \
 		../../orderprocessingstrategy.cpp \
 		../../orderstate.cpp \
+		../../paymentsystemadapter.cpp \
 		../../startWindow.cpp \
 		../../user.cpp
 QMAKE_TARGET  = OrderManagementSystem
@@ -804,8 +808,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../OrderManagementSystem_ru_RU.ts $(DISTDIR)/
 	$(COPY_FILE) --parents qmake_qmake_qm_files.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents ../../bagdialog.h ../../createorderdialog.h ../../database.h ../../factory.h ../../good.h ../../mainwindow.h ../../order.h ../../orderlistwindow.h ../../orderprocessingstrategy.h ../../orderstate.h ../../startWindow.h ../../user.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../bagdialog.cpp ../../createorderdialog.cpp ../../database.cpp ../../factory.cpp ../../good.cpp ../../main.cpp ../../mainwindow.cpp ../../order.cpp ../../orderlistwindow.cpp ../../orderprocessingstrategy.cpp ../../orderstate.cpp ../../startWindow.cpp ../../user.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../bagdialog.h ../../createorderdialog.h ../../database.h ../../factory.h ../../good.h ../../mainwindow.h ../../order.h ../../orderlistwindow.h ../../orderprocessingstrategy.h ../../orderstate.h ../../paymentsystemadapter.h ../../startWindow.h ../../user.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../bagdialog.cpp ../../createorderdialog.cpp ../../database.cpp ../../factory.cpp ../../good.cpp ../../main.cpp ../../mainwindow.cpp ../../order.cpp ../../orderlistwindow.cpp ../../orderprocessingstrategy.cpp ../../orderstate.cpp ../../paymentsystemadapter.cpp ../../startWindow.cpp ../../user.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../bagdialog.ui ../../createorderdialog.ui ../../mainwindow.ui ../../orderlistwindow.ui ../../startWindow.ui $(DISTDIR)/
 	$(COPY_FILE) --parents ../../OrderManagementSystem_ru_RU.ts $(DISTDIR)/
 
@@ -908,11 +912,13 @@ moc_orderlistwindow.cpp: ../../orderlistwindow.h \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qstring.h \
 		../../orderstate.h \
 		../../good.h \
-		../../orderprocessingstrategy.h \
+		../../paymentsystemadapter.h \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QDebug \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qdebug.h \
+		../../orderprocessingstrategy.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../PaymentSystemAdapter.h \
 		../../../../Qt/6.8.0/macos/libexec/moc
 	/Users/otrix/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/otrix/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/otrix/code/OrderManagementSystem -I/Users/otrix/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtSql.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/Users/otrix/Qt/6.8.0/macos/lib ../../orderlistwindow.h -o moc_orderlistwindow.cpp
 
@@ -1000,11 +1006,13 @@ createorderdialog.o: ../../createorderdialog.cpp ../../createorderdialog.h \
 		../../factory.h \
 		../../order.h \
 		../../orderstate.h \
-		../../orderprocessingstrategy.h \
+		../../paymentsystemadapter.h \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QDebug \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qdebug.h \
+		../../orderprocessingstrategy.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QWidget \
-		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qwidget.h
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../PaymentSystemAdapter.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o createorderdialog.o ../../createorderdialog.cpp
 
 database.o: ../../database.cpp 
@@ -1047,9 +1055,11 @@ mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../factory.h \
 		../../order.h \
 		../../orderstate.h \
+		../../paymentsystemadapter.h \
 		../../orderprocessingstrategy.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../PaymentSystemAdapter.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QPushButton \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QVBoxLayout \
@@ -1074,11 +1084,13 @@ order.o: ../../order.cpp ../../order.h \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qlist.h \
 		../../orderstate.h \
 		../../good.h \
-		../../orderprocessingstrategy.h \
+		../../paymentsystemadapter.h \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QDebug \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qdebug.h \
+		../../orderprocessingstrategy.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QWidget \
-		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qwidget.h
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../PaymentSystemAdapter.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o order.o ../../order.cpp
 
 orderlistwindow.o: ../../orderlistwindow.cpp ../../orderlistwindow.h \
@@ -1097,11 +1109,13 @@ orderlistwindow.o: ../../orderlistwindow.cpp ../../orderlistwindow.h \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qstring.h \
 		../../orderstate.h \
 		../../good.h \
-		../../orderprocessingstrategy.h \
+		../../paymentsystemadapter.h \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QDebug \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qdebug.h \
+		../../orderprocessingstrategy.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../PaymentSystemAdapter.h \
 		ui_orderlistwindow.h \
 		../../database.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QMessageBox \
@@ -1129,17 +1143,22 @@ orderstate.o: ../../orderstate.cpp ../../orderstate.h \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QList \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qlist.h \
 		../../good.h \
-		../../order.h \
-		../../orderprocessingstrategy.h \
+		../../paymentsystemadapter.h \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QDebug \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qdebug.h \
+		../../order.h \
+		../../orderprocessingstrategy.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../PaymentSystemAdapter.h \
 		../../database.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		../../factory.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o orderstate.o ../../orderstate.cpp
+
+paymentsystemadapter.o: ../../paymentsystemadapter.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o paymentsystemadapter.o ../../paymentsystemadapter.cpp
 
 startWindow.o: ../../startWindow.cpp ../../startWindow.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QMainWindow \
@@ -1166,9 +1185,11 @@ startWindow.o: ../../startWindow.cpp ../../startWindow.h \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QList \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qlist.h \
 		../../orderstate.h \
+		../../paymentsystemadapter.h \
 		../../orderprocessingstrategy.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../PaymentSystemAdapter.h \
 		../../mainwindow.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QGridLayout \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qgridlayout.h \
