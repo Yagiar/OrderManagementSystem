@@ -188,7 +188,7 @@ public:
     }
 
     bool InsertOrder(int userId, const QString& orderDescription, const QString& orderType,
-                     int stateId, int priorityId, const QList<Good>& goods) {
+                     int stateId, int priorityId, const QList<Good>& goods, PaymentSystemAdapter* paymentSystem) {
         QSqlQuery query;
         query.prepare("INSERT INTO orders (user_id, order_description, order_type, state_id, priority_id) "
                       "VALUES (:userId, :orderDescription, :orderType, :stateId, :priorityId)");
@@ -219,6 +219,27 @@ public:
                 return false;
             }
         }
+
+        double totalAmount = 0.0;
+        for (const Good& curGood : goods) {
+            totalAmount += curGood.getPrice();
+        }
+
+        // Добавление записи в таблицу payments
+        QString paymentSystemName = paymentSystem ? paymentSystem->GetPaymentSystemName() : "Неизвестно";
+        // Получаем имя платёжной системы
+
+        query.prepare("INSERT INTO payments (order_id, payment_system, amount, status) "
+                      "VALUES (:orderId, :paymentSystem, :amount, 'Оплачено')");
+        query.bindValue(":orderId", orderId);
+        query.bindValue(":paymentSystem", paymentSystemName);
+        query.bindValue(":amount", totalAmount);
+
+        if (!query.exec()) {
+            qDebug() << "Ошибка добавления записи в payments: " << query.lastError().text();
+            return false; // Или обрабатываем ошибку иначе
+        }
+
         qDebug() << "Заказ успешно добавлен, order_id: " << orderId;
         return true;
     }
@@ -235,6 +256,21 @@ public:
             qDebug() << "Состояние заказа с ID" << orderId << "обновлено на" << newStateId;
         }
     }
+
+    QString GetStatusPaidByOrderId(int orderId) {
+        QSqlQuery query;
+        query.prepare("SELECT status FROM payments WHERE order_id = :orderId");
+        query.bindValue(":orderId", orderId);
+
+        if (query.exec() && query.next()) {
+            return query.value("status").toString();
+        } else {
+            qDebug() << "Ошибка получения статуса оплаты для заказа" << orderId << ":"
+                     << query.lastError().text();
+            return "Статус неизвестен"; // Или верни другое значение по умолчанию
+        }
+    }
+
     QList<Order*> getAllOrders() {
         QList<Order*> ordersList;
         QSqlQuery query;

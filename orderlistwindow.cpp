@@ -20,8 +20,8 @@ OrderListWindow::OrderListWindow(QWidget *parent)
 
     tableView = new QTableView(this);
     model = new QStandardItemModel(this);
-    model->setColumnCount(8); // Увеличиваем количество столбцов
-    model->setHorizontalHeaderLabels(QStringList() << "Order ID" << "Username" << "Description" << "Order Type" << "ShowGoods" << "Strategy");
+    model->setColumnCount(9); // Увеличиваем количество столбцов
+    model->setHorizontalHeaderLabels(QStringList() << "Order ID" << "Username" << "Description" << "Order Type" << "ShowGoods" << "Strategy" << "IsPaid");
 
     tableView->setModel(model);
     tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -54,10 +54,11 @@ void OrderListWindow::loadOrders() {
             model->setItem(i, 3, new QStandardItem(order->getOrderType()));
             model->setItem(i, 4, new QStandardItem(order->getState()->name));
             model->setItem(i, 5, new QStandardItem(order->getProcessingStrategy()->name));
+            model->setItem(i, 6, new QStandardItem(db.GetStatusPaidByOrderId(order->getOrderId())));
 
             // Создаем кнопку "Показать товары"
             QPushButton *button = new QPushButton("Показать товары");
-            tableView->setIndexWidget(model->index(i, 6), button);
+            tableView->setIndexWidget(model->index(i, 7), button);
 
             // Подключаем сигнал на нажатие кнопки
             connect(button, &QPushButton::clicked, [this, i]() {
@@ -66,7 +67,7 @@ void OrderListWindow::loadOrders() {
 
             // Создаем кнопку "Обработать заказ по стратегии"
             QPushButton *proccessOrderButton = new QPushButton("Обработать заказ по стратегии");
-            tableView->setIndexWidget(model->index(i, 7), proccessOrderButton);
+            tableView->setIndexWidget(model->index(i, 8), proccessOrderButton);
 
             connect(proccessOrderButton, &QPushButton::clicked, [this, i]() {
                 processOrderForStrategyOnForm(i);

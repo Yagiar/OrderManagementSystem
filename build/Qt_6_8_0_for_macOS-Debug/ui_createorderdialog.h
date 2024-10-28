@@ -33,6 +33,8 @@ public:
     QTextEdit *textEditDescriptionOrder;
     QLabel *label_3;
     QPushButton *pushButton;
+    QComboBox *comboBoxPaymentSystem;
+    QLabel *label_4;
 
     void setupUi(QDialog *CreateOrderDialog)
     {
@@ -51,19 +53,19 @@ public:
         comboBoxTypeOrder->addItem(QString());
         comboBoxTypeOrder->addItem(QString());
         comboBoxTypeOrder->setObjectName("comboBoxTypeOrder");
-        comboBoxTypeOrder->setGeometry(QRect(460, 80, 161, 26));
+        comboBoxTypeOrder->setGeometry(QRect(440, 80, 161, 26));
         label = new QLabel(CreateOrderDialog);
         label->setObjectName("label");
-        label->setGeometry(QRect(460, 50, 161, 20));
+        label->setGeometry(QRect(480, 60, 71, 20));
         label_2 = new QLabel(CreateOrderDialog);
         label_2->setObjectName("label_2");
-        label_2->setGeometry(QRect(650, 50, 161, 20));
+        label_2->setGeometry(QRect(610, 60, 121, 20));
         comboBoxPriorityOrder = new QComboBox(CreateOrderDialog);
         comboBoxPriorityOrder->addItem(QString());
         comboBoxPriorityOrder->addItem(QString());
         comboBoxPriorityOrder->addItem(QString());
         comboBoxPriorityOrder->setObjectName("comboBoxPriorityOrder");
-        comboBoxPriorityOrder->setGeometry(QRect(650, 80, 161, 26));
+        comboBoxPriorityOrder->setGeometry(QRect(590, 80, 161, 26));
         textEditDescriptionOrder = new QTextEdit(CreateOrderDialog);
         textEditDescriptionOrder->setObjectName("textEditDescriptionOrder");
         textEditDescriptionOrder->setGeometry(QRect(460, 160, 471, 351));
@@ -73,6 +75,15 @@ public:
         pushButton = new QPushButton(CreateOrderDialog);
         pushButton->setObjectName("pushButton");
         pushButton->setGeometry(QRect(780, 570, 151, 61));
+        comboBoxPaymentSystem = new QComboBox(CreateOrderDialog);
+        comboBoxPaymentSystem->addItem(QString());
+        comboBoxPaymentSystem->addItem(QString());
+        comboBoxPaymentSystem->addItem(QString());
+        comboBoxPaymentSystem->setObjectName("comboBoxPaymentSystem");
+        comboBoxPaymentSystem->setGeometry(QRect(760, 80, 161, 26));
+        label_4 = new QLabel(CreateOrderDialog);
+        label_4->setObjectName("label_4");
+        label_4->setGeometry(QRect(780, 60, 121, 20));
 
         retranslateUi(CreateOrderDialog);
 
@@ -93,6 +104,11 @@ public:
 
         label_3->setText(QCoreApplication::translate("CreateOrderDialog", "\320\236\320\277\320\270\321\201\320\260\320\275\320\270\320\265 \320\272 \320\267\320\260\320\272\320\260\320\267\321\203", nullptr));
         pushButton->setText(QCoreApplication::translate("CreateOrderDialog", "\320\237\320\265\321\200\320\265\320\271\321\202\320\270 \320\272 \320\276\320\277\320\273\320\260\321\202\320\265", nullptr));
+        comboBoxPaymentSystem->setItemText(0, QCoreApplication::translate("CreateOrderDialog", "\320\241\320\221\320\237", nullptr));
+        comboBoxPaymentSystem->setItemText(1, QCoreApplication::translate("CreateOrderDialog", "\320\241\320\221\320\225\320\240", nullptr));
+        comboBoxPaymentSystem->setItemText(2, QCoreApplication::translate("CreateOrderDialog", "\320\257\320\235\320\224\320\225\320\232\320\241", nullptr));
+
+        label_4->setText(QCoreApplication::translate("CreateOrderDialog", "\320\241\320\277\320\276\321\201\320\276\320\261 \320\276\320\277\320\273\320\260\321\202\321\213", nullptr));
     } // retranslateUi
 
 };

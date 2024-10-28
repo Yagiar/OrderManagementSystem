@@ -4,11 +4,18 @@
 #include <QDebug>
 
 void CreatedState::Create(Order* order, const QString& orderDescription,
-                                int stateId, int priorityId, const QList<Good>& goods, QString& username) {
+                                int stateId, int priorityId, const QList<Good>& goods, QString& username, PaymentSystemAdapter* paymentSystem) {
     Database db;
     if (db.open()) {
-        db.InsertOrder(db.GetUserIdByUsername(username), orderDescription, order->getOrderType(), stateId, priorityId, goods);
-        order->setState(new CreatedState(QString::number(1)));
+        if(order->pay(paymentSystem,100.00))
+        {
+            db.InsertOrder(db.GetUserIdByUsername(username), orderDescription, order->getOrderType(), stateId, priorityId, goods, paymentSystem);
+            order->setState(new CreatedState(QString::number(1)));
+        }
+        else
+        {
+            qDebug() << "Please paid for order." ;
+        }
     } else {
         qDebug() << "Database connection error.";
     }

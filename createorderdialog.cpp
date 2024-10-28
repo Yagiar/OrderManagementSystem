@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include "factory.h"
+#include "paymentsystemadapter.h"
 
 CreateOrderDialog::CreateOrderDialog(QList<Good> *choosenGoods, QWidget *parent)
     : QDialog(parent)
@@ -44,13 +45,21 @@ CreateOrderDialog::~CreateOrderDialog()
 
 void CreateOrderDialog::on_pushButton_clicked()
 {
+    PaymentSystemAdapter* paymentSystem = nullptr;
+    switch(ui->comboBoxPaymentSystem->currentIndex())
+    {
+        case 0: paymentSystem = new SBPAdapter(); break;
+        case 1: paymentSystem = new SberPayAdapter(); break;
+        case 2: paymentSystem = new YandexPayAdapter(); break;
+    }
+
     switch(ui->comboBoxTypeOrder->currentIndex())
     {
     case 0:
         {
             Factory* factory = new DigitalFactory();
             factory->creationOfOrder(ui->textEditDescriptionOrder->toPlainText(), 1,
-                                     ui->comboBoxPriorityOrder->currentIndex()+1, *goods, username);
+                                     ui->comboBoxPriorityOrder->currentIndex()+1, *goods, username, paymentSystem);
 
             delete factory;
             break;
@@ -60,7 +69,7 @@ void CreateOrderDialog::on_pushButton_clicked()
         {
             Factory* factory = new PhysicalFactory();
             factory->creationOfOrder(ui->textEditDescriptionOrder->toPlainText(), 1,
-                                     ui->comboBoxPriorityOrder->currentIndex()+1, *goods, username);
+                                     ui->comboBoxPriorityOrder->currentIndex()+1, *goods, username, paymentSystem);
 
             delete factory;
             break;
