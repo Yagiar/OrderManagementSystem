@@ -15,8 +15,8 @@ public:
 
 class RegularOrderProcessingStrategy: public OrderProcessingStrategy {
 public:
-    RegularOrderProcessingStrategy(QString name) {
-        this->name = name;
+    RegularOrderProcessingStrategy() {
+        this->name = "Обычная";
         qDebug() << "Создана стратегия обычного заказа";
     }
     QString process(Order* order) override;
@@ -24,8 +24,8 @@ public:
 
 class ExpressOrderProcessingStrategy: public OrderProcessingStrategy {
 public:
-    ExpressOrderProcessingStrategy(QString name) {
-        this->name = name;
+    ExpressOrderProcessingStrategy() {
+        this->name = "Экспресс";
 
         qDebug() << "Создана стратегия обычного заказа";
     }
@@ -34,8 +34,8 @@ public:
 
 class CourierOrderProcessingStrategy: public OrderProcessingStrategy {
 public:
-    CourierOrderProcessingStrategy(QString name) {
-        this->name = name;
+    CourierOrderProcessingStrategy() {
+        this->name = "Курьером";
         qDebug() << "Создана стратегия обычного заказа";
     }
     QString process(Order* order) override;

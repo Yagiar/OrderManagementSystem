@@ -53,6 +53,7 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../../bagdialog.cpp \
+		../../changestateform.cpp \
 		../../createorderdialog.cpp \
 		../../database.cpp \
 		../../factory.cpp \
@@ -63,15 +64,18 @@ SOURCES       = ../../bagdialog.cpp \
 		../../orderlistwindow.cpp \
 		../../orderprocessingstrategy.cpp \
 		../../orderstate.cpp \
+		../../orderstatehandler.cpp \
 		../../paymentsystemadapter.cpp \
 		../../startWindow.cpp \
 		../../user.cpp qrc_qmake_qmake_qm_files.cpp \
 		moc_bagdialog.cpp \
+		moc_changestateform.cpp \
 		moc_createorderdialog.cpp \
 		moc_mainwindow.cpp \
 		moc_orderlistwindow.cpp \
 		moc_startWindow.cpp
 OBJECTS       = bagdialog.o \
+		changestateform.o \
 		createorderdialog.o \
 		database.o \
 		factory.o \
@@ -82,11 +86,13 @@ OBJECTS       = bagdialog.o \
 		orderlistwindow.o \
 		orderprocessingstrategy.o \
 		orderstate.o \
+		orderstatehandler.o \
 		paymentsystemadapter.o \
 		startWindow.o \
 		user.o \
 		qrc_qmake_qmake_qm_files.o \
 		moc_bagdialog.o \
+		moc_changestateform.o \
 		moc_createorderdialog.o \
 		moc_mainwindow.o \
 		moc_orderlistwindow.o \
@@ -305,6 +311,7 @@ DIST          = /Qt/6.8.0/macos/mkspecs/features/spec_pre.prf \
 		/Qt/6.8.0/macos/mkspecs/features/yacc.prf \
 		/Qt/6.8.0/macos/mkspecs/features/lex.prf \
 		../../../../OrderManagementSystem.pro ../../bagdialog.h \
+		../../changestateform.h \
 		../../createorderdialog.h \
 		../../database.h \
 		../../factory.h \
@@ -314,9 +321,11 @@ DIST          = /Qt/6.8.0/macos/mkspecs/features/spec_pre.prf \
 		../../orderlistwindow.h \
 		../../orderprocessingstrategy.h \
 		../../orderstate.h \
+		../../orderstatehandler.h \
 		../../paymentsystemadapter.h \
 		../../startWindow.h \
 		../../user.h ../../bagdialog.cpp \
+		../../changestateform.cpp \
 		../../createorderdialog.cpp \
 		../../database.cpp \
 		../../factory.cpp \
@@ -327,6 +336,7 @@ DIST          = /Qt/6.8.0/macos/mkspecs/features/spec_pre.prf \
 		../../orderlistwindow.cpp \
 		../../orderprocessingstrategy.cpp \
 		../../orderstate.cpp \
+		../../orderstatehandler.cpp \
 		../../paymentsystemadapter.cpp \
 		../../startWindow.cpp \
 		../../user.cpp
@@ -350,7 +360,7 @@ include /Users/otrix/Qt/6.8.0/macos/mkspecs/features/mac/sdk.mk
 first: all
 ####### Build rules
 
-OrderManagementSystem: ui_bagdialog.h ui_createorderdialog.h ui_mainwindow.h ui_orderlistwindow.h ui_startWindow.h $(OBJECTS)  
+OrderManagementSystem: ui_bagdialog.h ui_changestateform.h ui_createorderdialog.h ui_mainwindow.h ui_orderlistwindow.h ui_startWindow.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET)  $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../../OrderManagementSystem.pro ../../../../Qt/6.8.0/macos/mkspecs/features/spec_pre.prf \
@@ -808,9 +818,9 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../OrderManagementSystem_ru_RU.ts $(DISTDIR)/
 	$(COPY_FILE) --parents qmake_qmake_qm_files.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents ../../bagdialog.h ../../createorderdialog.h ../../database.h ../../factory.h ../../good.h ../../mainwindow.h ../../order.h ../../orderlistwindow.h ../../orderprocessingstrategy.h ../../orderstate.h ../../paymentsystemadapter.h ../../startWindow.h ../../user.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../bagdialog.cpp ../../createorderdialog.cpp ../../database.cpp ../../factory.cpp ../../good.cpp ../../main.cpp ../../mainwindow.cpp ../../order.cpp ../../orderlistwindow.cpp ../../orderprocessingstrategy.cpp ../../orderstate.cpp ../../paymentsystemadapter.cpp ../../startWindow.cpp ../../user.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../bagdialog.ui ../../createorderdialog.ui ../../mainwindow.ui ../../orderlistwindow.ui ../../startWindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../../bagdialog.h ../../changestateform.h ../../createorderdialog.h ../../database.h ../../factory.h ../../good.h ../../mainwindow.h ../../order.h ../../orderlistwindow.h ../../orderprocessingstrategy.h ../../orderstate.h ../../orderstatehandler.h ../../paymentsystemadapter.h ../../startWindow.h ../../user.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../bagdialog.cpp ../../changestateform.cpp ../../createorderdialog.cpp ../../database.cpp ../../factory.cpp ../../good.cpp ../../main.cpp ../../mainwindow.cpp ../../order.cpp ../../orderlistwindow.cpp ../../orderprocessingstrategy.cpp ../../orderstate.cpp ../../orderstatehandler.cpp ../../paymentsystemadapter.cpp ../../startWindow.cpp ../../user.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../bagdialog.ui ../../changestateform.ui ../../createorderdialog.ui ../../mainwindow.ui ../../orderlistwindow.ui ../../startWindow.ui $(DISTDIR)/
 	$(COPY_FILE) --parents ../../OrderManagementSystem_ru_RU.ts $(DISTDIR)/
 
 
@@ -852,9 +862,9 @@ qrc_qmake_qmake_qm_files.cpp: qmake_qmake_qm_files.qrc \
 		.qm/OrderManagementSystem_ru_RU.qm
 	/Users/otrix/Qt/6.8.0/macos/libexec/rcc -name qmake_qmake_qm_files --no-zstd qmake_qmake_qm_files.qrc -o qrc_qmake_qmake_qm_files.cpp
 
-compiler_moc_header_make_all: moc_bagdialog.cpp moc_createorderdialog.cpp moc_mainwindow.cpp moc_orderlistwindow.cpp moc_startWindow.cpp
+compiler_moc_header_make_all: moc_bagdialog.cpp moc_changestateform.cpp moc_createorderdialog.cpp moc_mainwindow.cpp moc_orderlistwindow.cpp moc_startWindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_bagdialog.cpp moc_createorderdialog.cpp moc_mainwindow.cpp moc_orderlistwindow.cpp moc_startWindow.cpp
+	-$(DEL_FILE) moc_bagdialog.cpp moc_changestateform.cpp moc_createorderdialog.cpp moc_mainwindow.cpp moc_orderlistwindow.cpp moc_startWindow.cpp
 moc_bagdialog.cpp: ../../bagdialog.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QDialog \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qdialog.h \
@@ -871,6 +881,18 @@ moc_bagdialog.cpp: ../../bagdialog.h \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qstring.h \
 		../../../../Qt/6.8.0/macos/libexec/moc
 	/Users/otrix/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/otrix/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/otrix/code/OrderManagementSystem -I/Users/otrix/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtSql.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/Users/otrix/Qt/6.8.0/macos/lib ../../bagdialog.h -o moc_bagdialog.cpp
+
+moc_changestateform.cpp: ../../changestateform.h \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QDialog \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QComboBox \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qcombobox.h \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QPushButton \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QLabel \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qlabel.h \
+		../../../../Qt/6.8.0/macos/libexec/moc
+	/Users/otrix/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/otrix/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/otrix/code/OrderManagementSystem -I/Users/otrix/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtSql.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/Users/otrix/Qt/6.8.0/macos/lib ../../changestateform.h -o moc_changestateform.cpp
 
 moc_createorderdialog.cpp: ../../createorderdialog.h \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QList \
@@ -932,12 +954,16 @@ compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_bagdialog.h ui_createorderdialog.h ui_mainwindow.h ui_orderlistwindow.h ui_startWindow.h
+compiler_uic_make_all: ui_bagdialog.h ui_changestateform.h ui_createorderdialog.h ui_mainwindow.h ui_orderlistwindow.h ui_startWindow.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_bagdialog.h ui_createorderdialog.h ui_mainwindow.h ui_orderlistwindow.h ui_startWindow.h
+	-$(DEL_FILE) ui_bagdialog.h ui_changestateform.h ui_createorderdialog.h ui_mainwindow.h ui_orderlistwindow.h ui_startWindow.h
 ui_bagdialog.h: ../../bagdialog.ui \
 		../../../../Qt/6.8.0/macos/libexec/uic
 	/Users/otrix/Qt/6.8.0/macos/libexec/uic ../../bagdialog.ui -o ui_bagdialog.h
+
+ui_changestateform.h: ../../changestateform.ui \
+		../../../../Qt/6.8.0/macos/libexec/uic
+	/Users/otrix/Qt/6.8.0/macos/libexec/uic ../../changestateform.ui -o ui_changestateform.h
 
 ui_createorderdialog.h: ../../createorderdialog.ui \
 		../../../../Qt/6.8.0/macos/libexec/uic
@@ -987,6 +1013,22 @@ bagdialog.o: ../../bagdialog.cpp ../../bagdialog.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qlabel.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QHBoxLayout
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bagdialog.o ../../bagdialog.cpp
+
+changestateform.o: ../../changestateform.cpp ../../changestateform.h \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QDialog \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QComboBox \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qcombobox.h \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QPushButton \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QLabel \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qlabel.h \
+		ui_changestateform.h \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qmessagebox.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o changestateform.o ../../changestateform.cpp
 
 createorderdialog.o: ../../createorderdialog.cpp ../../createorderdialog.h \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QList \
@@ -1125,7 +1167,19 @@ orderlistwindow.o: ../../orderlistwindow.cpp ../../orderlistwindow.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QHeaderView \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qheaderview.h \
-		../../../../Qt/6.8.0/macos/lib/QtGui.framework/Headers/QStandardItem
+		../../../../Qt/6.8.0/macos/lib/QtGui.framework/Headers/QStandardItem \
+		../../changestateform.h \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QDialog \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QComboBox \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qcombobox.h \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QLabel \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qlabel.h \
+		../../../../Qt/6.8.0/macos/lib/QtGui.framework/Headers/QCloseEvent \
+		../../../../Qt/6.8.0/macos/lib/QtGui.framework/Headers/qevent.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QCoreApplication \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qcoreapplication.h \
+		../../orderstatehandler.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o orderlistwindow.o ../../orderlistwindow.cpp
 
 orderprocessingstrategy.o: ../../orderprocessingstrategy.cpp ../../orderprocessingstrategy.h \
@@ -1156,6 +1210,9 @@ orderstate.o: ../../orderstate.cpp ../../orderstate.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		../../factory.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o orderstate.o ../../orderstate.cpp
+
+orderstatehandler.o: ../../orderstatehandler.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o orderstatehandler.o ../../orderstatehandler.cpp
 
 paymentsystemadapter.o: ../../paymentsystemadapter.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o paymentsystemadapter.o ../../paymentsystemadapter.cpp
@@ -1210,6 +1267,9 @@ qrc_qmake_qmake_qm_files.o: qrc_qmake_qmake_qm_files.cpp
 
 moc_bagdialog.o: moc_bagdialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_bagdialog.o moc_bagdialog.cpp
+
+moc_changestateform.o: moc_changestateform.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_changestateform.o moc_changestateform.cpp
 
 moc_createorderdialog.o: moc_createorderdialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_createorderdialog.o moc_createorderdialog.cpp

@@ -22,9 +22,9 @@ public:
 // Класс состояния Created
 class CreatedState : public OrderState {
 public:
-    CreatedState(QString name)
+    CreatedState()
     {
-        this->name = name;
+        this->name = "Принят";
     }
     void Create(Order* order, const QString& orderDescription,
                 int stateId, int priorityId, const QList<Good>& goods, QString& username, PaymentSystemAdapter* paymentSystem) override;
@@ -33,9 +33,9 @@ public:
 // Класс состояния Processing
 class ProcessingState : public OrderState {
 public:
-    ProcessingState(QString name)
+    ProcessingState()
     {
-        this->name = name;
+        this->name = "В обработке";
     }
     void Update(Order* order) override;
 };
@@ -43,9 +43,9 @@ public:
 // Класс состояния Completed
 class CompletedState : public OrderState {
 public:
-    CompletedState(QString name)
+    CompletedState()
     {
-        this->name = name;
+        this->name = "Выполнен";
     }
     void Finish(Order* order) override;
 };

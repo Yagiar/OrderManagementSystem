@@ -112,8 +112,9 @@ bool Order::pay(PaymentSystemAdapter* adapter, double amount) {
 
 // Реализация методов PhysicalOrder
 PhysicalOrder::PhysicalOrder()
-    : Order(0, new CreatedState(QString::number(1)), nullptr, "", "", {}) {
-    // Инициализация по умолчанию
+    : Order(0, new CreatedState(), nullptr, "", "", {})
+{
+     setState(new CreatedState());
 }
 
 PhysicalOrder::PhysicalOrder(int id, OrderState* state, OrderProcessingStrategy* strategy, const QString& orderDescription, const QString& username, const QList<Good>& goods)
@@ -132,9 +133,9 @@ QString PhysicalOrder::getOrderType() const {
 
 // Реализация методов DigitalOrder
 DigitalOrder::DigitalOrder()
-    : Order(0, new CreatedState(QString::number(1)), nullptr, "", "", {})
+    : Order(0, new CreatedState(), nullptr, "", "", {})
 {
-    setState(new CreatedState(QString::number(1))); // Устанавливаем начальное состояние
+    setState(new CreatedState()); // Устанавливаем начальное состояние
 }
 
 DigitalOrder::DigitalOrder(int id, OrderState* state, OrderProcessingStrategy* strategy, const QString& orderDescription, const QString& username, const QList<Good>& goods)

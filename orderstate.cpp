@@ -10,7 +10,7 @@ void CreatedState::Create(Order* order, const QString& orderDescription,
         if(order->pay(paymentSystem,100.00))
         {
             db.InsertOrder(db.GetUserIdByUsername(username), orderDescription, order->getOrderType(), stateId, priorityId, goods, paymentSystem);
-            order->setState(new CreatedState(QString::number(1)));
+            order->setState(new CreatedState());
         }
         else
         {
@@ -25,7 +25,7 @@ void ProcessingState::Update(Order* order) {
     Database db;
     if (db.open()) {
         db.UpdateOrderState(order->getOrderId(), 2);
-        order->setState(new ProcessingState(QString::number(2)));
+        order->setState(new ProcessingState());
     } else {
         qDebug() << "Database connection error.";
     }
@@ -35,7 +35,7 @@ void CompletedState::Finish(Order* order) {
     Database db;
     if (db.open()) {
         db.UpdateOrderState(order->getOrderId(), 3);
-        order->setState(new CompletedState(QString::number(3)));
+        order->setState(new CompletedState());
     } else {
         qDebug() << "Database connection error.";
     }
