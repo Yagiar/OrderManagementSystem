@@ -11,6 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 SOURCES += \
     bagdialog.cpp \
+    changestateform.cpp \
     createorderdialog.cpp \
     database.cpp \
     factory.cpp \
@@ -21,12 +22,14 @@ SOURCES += \
     orderlistwindow.cpp \
     orderprocessingstrategy.cpp \
     orderstate.cpp \
+    orderstatehandler.cpp \
     paymentsystemadapter.cpp \
     startWindow.cpp \
     user.cpp
 
 HEADERS += \
     bagdialog.h \
+    changestateform.h \
     createorderdialog.h \
     database.h \
     factory.h \
@@ -36,12 +39,14 @@ HEADERS += \
     orderlistwindow.h \
     orderprocessingstrategy.h \
     orderstate.h \
+    orderstatehandler.h \
     paymentsystemadapter.h \
     startWindow.h \
     user.h
 
 FORMS += \
     bagdialog.ui \
+    changestateform.ui \
     createorderdialog.ui \
     mainwindow.ui \
     orderlistwindow.ui \

@@ -322,17 +322,17 @@ public:
 
                 case 1:
                 {
-                    curState = new CreatedState(QString::number(stateId));
+                    curState = new CreatedState();
                     break;
                 }
                 case 2:
                 {
-                    curState = new ProcessingState(QString::number(stateId));
+                    curState = new ProcessingState();
                     break;
                 }
                 case 3:
                 {
-                    curState = new CompletedState(QString::number(stateId));
+                    curState = new CompletedState();
                     break;
                 }
 
@@ -342,18 +342,18 @@ public:
                 {
                 case 1:
                 {
-                    curStrategy = new RegularOrderProcessingStrategy(QString::number(priorityId));
+                    curStrategy = new RegularOrderProcessingStrategy();
                     break;
 
                 }
                 case 2:
                 {
-                    curStrategy = new ExpressOrderProcessingStrategy(QString::number(priorityId));
+                    curStrategy = new ExpressOrderProcessingStrategy();
                     break;
                 }
                 case 3:
                 {
-                    curStrategy = new CourierOrderProcessingStrategy(QString::number(priorityId));
+                    curStrategy = new CourierOrderProcessingStrategy();
                     break;
                 }
 

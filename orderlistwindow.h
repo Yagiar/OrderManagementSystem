@@ -25,6 +25,7 @@ private:
 private slots:
     void showOrderGoods(int row); // Добавьте это
     void processOrderForStrategyOnForm(int row);
+    void changeStateOnForm(int row);
 
 private:
     Ui::OrderListWindow *ui;
@@ -32,6 +33,11 @@ private:
     QStandardItemModel *model; // Модель для таблицы
     QPushButton *closeButton; // Кнопка закрытия
     QList<Order*> orders; // Список заказов
+    // orderlistwindow.h
+private slots:
+    void updateOrderState(int row, const QString& newState);
+protected:
+    void closeEvent(QCloseEvent *event) override;
 };
 
 #endif // ORDERLISTWINDOW_H

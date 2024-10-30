@@ -5,6 +5,10 @@
 #include <QHeaderView>
 #include <QMessageBox>
 #include <QStandardItem>
+#include "changestateform.h"
+#include <QCloseEvent>
+#include <QCoreApplication>
+#include "orderstatehandler.h"
 
 OrderListWindow::OrderListWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -20,8 +24,9 @@ OrderListWindow::OrderListWindow(QWidget *parent)
 
     tableView = new QTableView(this);
     model = new QStandardItemModel(this);
-    model->setColumnCount(9); // Увеличиваем количество столбцов
-    model->setHorizontalHeaderLabels(QStringList() << "Order ID" << "Username" << "Description" << "Order Type" << "ShowGoods" << "Strategy" << "IsPaid");
+    model->setColumnCount(10); // Увеличиваем количество столбцов
+    model->setHorizontalHeaderLabels(QStringList() << "Номер заказа" << "Пользователь" << "Описание" << "Тип заказа"
+                                                   << "Состояние" << "Стратегия" << "Оплата" << "Показать товары" << "Обработать" << "Поменять состояние");
 
     tableView->setModel(model);
     tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -72,47 +77,84 @@ void OrderListWindow::loadOrders() {
             connect(proccessOrderButton, &QPushButton::clicked, [this, i]() {
                 processOrderForStrategyOnForm(i);
             });
+
+            // Создаем кнопку "Обработать заказ по стратегии"
+            QPushButton *changeStateButton = new QPushButton("Поменять");
+            tableView->setIndexWidget(model->index(i, 9), changeStateButton);
+
+            connect(changeStateButton, &QPushButton::clicked, [this, i]() {
+                changeStateOnForm(i);
+            });
         }
     } else {
         QMessageBox::critical(this, "Ошибка", "Не удалось открыть базу данных.");
     }
 }
+void OrderListWindow::changeStateOnForm(int row) {
+
+    Order* order = orders[row];
+    int orderId = order->getOrderId(); // Получаем ID заказа
+    QString currentState = order->getState()->name; // Получаем текущее состояние
+
+    changeStateForm *stfrm = new changeStateForm(orderId, currentState, this);
+
+    connect(stfrm, &changeStateForm::stateChanged, this, [this, row](const QString& newState) {
+        updateOrderState(row, newState);
+    });
+
+    stfrm->setModal(true);
+    stfrm->exec();
+}
+
+
+// orderlistwindow.cpp
+void OrderListWindow::updateOrderState(int row, const QString& newStateStr) {
+    Order* order = orders[row];
+    // Создаем цепочку обработчиков
+
+    qDebug() << "Текущее состояние заказа:" << order->getState()->name;
+    qDebug() << "Попытка изменить состояние на:" << newStateStr;
+
+    OrderState *newState;
+    if(newStateStr == "Принят")
+    {
+        newState = new CreatedState();
+    }
+    else if(newStateStr == "В обработке")
+    {
+        newState = new ProcessingState();
+    }
+    else if(newStateStr == "Выполнен")
+    {
+        newState = new CompletedState();
+    }
+    else
+    {
+        QMessageBox::warning(this,"Ошибка", "Неизвестое состояние для заказа");
+    }
+    OrderStateHandler* startHandler = new StartedStateHandler();
+    OrderStateHandler* inProgressHandler = new InProgressStateHandler();
+    OrderStateHandler* completedHandler = new CompletedStateHandler();
+
+    // Настраиваем цепочку
+    startHandler->setNextHandler(inProgressHandler);
+    inProgressHandler->setNextHandler(completedHandler);
+
+    // Обрабатываем изменение состояния
+    startHandler->handle(order, newState, this);
+
+    model->setItem(row, 4, new QStandardItem(order->getState()->name));// Обновляем отображение в таблице
+    delete newState;
+}
+
 void OrderListWindow::processOrderForStrategyOnForm(int row) {
     Order* selectedOrder = orders[row];
 
-    // Инициализация фабрики в зависимости от типа заказа
-    Factory* factory = nullptr;
-    if (selectedOrder->getOrderType() == "Физический") {
-        factory = new PhysicalFactory();
-    } else if (selectedOrder->getOrderType() == "Цифровой") {
-        factory = new DigitalFactory();
-    }
-
-    // Проверка фабрики
-    if (factory) {
-        // Создание заказа через фабрику
-        OrderState* curState = selectedOrder->getState(); // Получаем текущее состояние заказа
-        OrderProcessingStrategy* curStrategy = selectedOrder->getProcessingStrategy(); // Получаем текущую стратегию
-
-        Order* order = factory->getExistOrder(
-            selectedOrder->getOrderId(),
-            curState,
-            curStrategy,
-            selectedOrder->getOrderDescription(),
-            selectedOrder->getUsername(),
-            selectedOrder->getGoods()
-            );
-
         // Обрабатываем заказ с использованием стратегии
-        if (order) {
-            QString response = order->processOrderAccordingStrategy();
+        if (selectedOrder) {
+            QString response = selectedOrder->processOrderAccordingStrategy();
             QMessageBox::information(this, "Стратегия", response);
         }
-
-        delete factory; // Освобождаем память
-    } else {
-        QMessageBox::critical(this, "Ошибка", "Не удалось создать заказ через фабрику.");
-    }
 }
 
 
@@ -127,4 +169,9 @@ void OrderListWindow::showOrderGoods(int row) {
         goodsDetails = "Товары отсутствуют в данном заказе.";
     }
     QMessageBox::information(this, "Товары заказа", goodsDetails);
+}
+
+void OrderListWindow::closeEvent(QCloseEvent *event) {
+    QApplication::quit();
+    event->accept(); // Принять событие закрытия
 }
