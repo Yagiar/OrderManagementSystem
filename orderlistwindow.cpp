@@ -143,7 +143,16 @@ void OrderListWindow::updateOrderState(int row, const QString& newStateStr) {
     // Обрабатываем изменение состояния
     startHandler->handle(order, newState, this);
 
+    if(typeid(*newState) ==  typeid(ProcessingState))
+    {
+        order->updateOrder();
+    }
+    else if(typeid(*newState) == typeid(CompletedStateHandler))
+    {
+        order->finishOrder();
+    }
     model->setItem(row, 4, new QStandardItem(order->getState()->name));// Обновляем отображение в таблице
+
     delete newState;
 }
 

@@ -43,6 +43,7 @@ public:
         if (order->getState()->name == "В обработке") {
             if (newState->name == "Выполнен") {
                 order->setState(new CompletedState());
+                order->finishOrder();
                 QMessageBox::information(widget, "Статус заказа", "Заказ выполнен!");
             } else {
                 OrderStateHandler::handle(order, newState, widget);

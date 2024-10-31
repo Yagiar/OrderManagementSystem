@@ -38,6 +38,7 @@ public:
         this->name = "В обработке";
     }
     void Update(Order* order) override;
+
 };
 
 // Класс состояния Completed
