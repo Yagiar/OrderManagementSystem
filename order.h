@@ -8,6 +8,7 @@
 #include "good.h"
 #include "PaymentSystemAdapter.h"
 
+class Visitor;
 // Вперед объявляем классы OrderProcessingStrategy и OrderState
 class OrderProcessingStrategy;
 class OrderState;
@@ -44,7 +45,7 @@ public:
     QString processOrderAccordingStrategy();
     virtual QString getOrderType() const = 0;
     bool pay(PaymentSystemAdapter* adapter, double amount);
-
+    void Accept(Visitor *visitor);
     // Конструктор базового класса
     Order(int id, OrderState* state, OrderProcessingStrategy* strategy, const QString& orderDescription, const QString& username,  const QList<Good>& goods);
 };

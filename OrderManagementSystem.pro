@@ -25,7 +25,8 @@ SOURCES += \
     orderstatehandler.cpp \
     paymentsystemadapter.cpp \
     startWindow.cpp \
-    user.cpp
+    user.cpp \
+    visitor.cpp
 
 HEADERS += \
     bagdialog.h \
@@ -42,7 +43,8 @@ HEADERS += \
     orderstatehandler.h \
     paymentsystemadapter.h \
     startWindow.h \
-    user.h
+    user.h \
+    visitor.h
 
 FORMS += \
     bagdialog.ui \

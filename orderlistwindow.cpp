@@ -9,6 +9,7 @@
 #include <QCloseEvent>
 #include <QCoreApplication>
 #include "orderstatehandler.h"
+#include "visitor.h"
 
 OrderListWindow::OrderListWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -22,10 +23,23 @@ OrderListWindow::OrderListWindow(QWidget *parent)
     setCentralWidget(centralWidget);
     QVBoxLayout *layout = new QVBoxLayout(centralWidget);
 
+    // Создаем и настраиваем комбобокс
+    exportVariantComboBox = new QComboBox(this);
+    exportVariantComboBox->addItem("XML");
+    exportVariantComboBox->addItem("JSON");
+
+    // Создаем и настраиваем кнопку экспорта
+    exportOrdersButton = new QPushButton("Экспортировать заказы", this);
+    connect(exportOrdersButton, &QPushButton::clicked, this, &OrderListWindow::exportOrdersOnForm);
+
+    // Добавляем комбобокс и кнопку в макет
+    layout->addWidget(exportVariantComboBox);
+    layout->addWidget(exportOrdersButton);
+
     tableView = new QTableView(this);
     model = new QStandardItemModel(this);
-    model->setColumnCount(10); // Увеличиваем количество столбцов
-    model->setHorizontalHeaderLabels(QStringList() << "Номер заказа" << "Пользователь" << "Описание" << "Тип заказа"
+    model->setColumnCount(11); // Увеличиваем количество столбцов
+    model->setHorizontalHeaderLabels(QStringList() << "Флаг" << "Номер заказа" << "Пользователь" << "Описание" << "Тип заказа"
                                                    << "Состояние" << "Стратегия" << "Оплата" << "Показать товары" << "Обработать" << "Поменять состояние");
 
     tableView->setModel(model);
@@ -53,17 +67,22 @@ void OrderListWindow::loadOrders() {
 
         for (int i = 0; i < orders.size(); ++i) {
             Order* order = orders[i];
-            model->setItem(i, 0, new QStandardItem(QString::number(order->getOrderId())));
-            model->setItem(i, 1, new QStandardItem(order->getUsername()));
-            model->setItem(i, 2, new QStandardItem(order->getOrderDescription()));
-            model->setItem(i, 3, new QStandardItem(order->getOrderType()));
-            model->setItem(i, 4, new QStandardItem(order->getState()->name));
-            model->setItem(i, 5, new QStandardItem(order->getProcessingStrategy()->name));
-            model->setItem(i, 6, new QStandardItem(db.GetStatusPaidByOrderId(order->getOrderId())));
+
+            QStandardItem *checkBoxItem = new QStandardItem();
+            checkBoxItem->setCheckable(true);
+            model->setItem(i, 0, checkBoxItem);
+
+            model->setItem(i, 1, new QStandardItem(QString::number(order->getOrderId())));
+            model->setItem(i, 2, new QStandardItem(order->getUsername()));
+            model->setItem(i, 3, new QStandardItem(order->getOrderDescription()));
+            model->setItem(i, 4, new QStandardItem(order->getOrderType()));
+            model->setItem(i, 5, new QStandardItem(order->getState()->name));
+            model->setItem(i, 6, new QStandardItem(order->getProcessingStrategy()->name));
+            model->setItem(i, 7, new QStandardItem(db.GetStatusPaidByOrderId(order->getOrderId())));
 
             // Создаем кнопку "Показать товары"
             QPushButton *button = new QPushButton("Показать товары");
-            tableView->setIndexWidget(model->index(i, 7), button);
+            tableView->setIndexWidget(model->index(i, 8), button);
 
             // Подключаем сигнал на нажатие кнопки
             connect(button, &QPushButton::clicked, [this, i]() {
@@ -71,16 +90,15 @@ void OrderListWindow::loadOrders() {
             });
 
             // Создаем кнопку "Обработать заказ по стратегии"
-            QPushButton *proccessOrderButton = new QPushButton("Обработать заказ по стратегии");
-            tableView->setIndexWidget(model->index(i, 8), proccessOrderButton);
+            QPushButton *proccessOrderButton = new QPushButton("Обработать заказ");
+            tableView->setIndexWidget(model->index(i, 9), proccessOrderButton);
 
             connect(proccessOrderButton, &QPushButton::clicked, [this, i]() {
                 processOrderForStrategyOnForm(i);
             });
 
-            // Создаем кнопку "Обработать заказ по стратегии"
             QPushButton *changeStateButton = new QPushButton("Поменять");
-            tableView->setIndexWidget(model->index(i, 9), changeStateButton);
+            tableView->setIndexWidget(model->index(i, 10), changeStateButton);
 
             connect(changeStateButton, &QPushButton::clicked, [this, i]() {
                 changeStateOnForm(i);
@@ -111,9 +129,6 @@ void OrderListWindow::changeStateOnForm(int row) {
 void OrderListWindow::updateOrderState(int row, const QString& newStateStr) {
     Order* order = orders[row];
     // Создаем цепочку обработчиков
-
-    qDebug() << "Текущее состояние заказа:" << order->getState()->name;
-    qDebug() << "Попытка изменить состояние на:" << newStateStr;
 
     OrderState *newState;
     if(newStateStr == "Принят")
@@ -184,3 +199,36 @@ void OrderListWindow::closeEvent(QCloseEvent *event) {
     QApplication::quit();
     event->accept(); // Принять событие закрытия
 }
+
+void OrderListWindow::exportOrdersOnForm() {
+    Visitor* visitor;
+    if(exportVariantComboBox->currentText() == "XML")
+    {
+        visitor = new XmlVisitor();
+    }
+    else if(exportVariantComboBox->currentText() == "JSON")
+    {
+        visitor = new JsonVisitor();
+    }
+
+    QString exportedOrders; // Для хранения информации об экспортированных заказах
+    bool atLeastOneExported = false; // Флаг для проверки, были ли экспортированы заказы
+
+    for (int i = 0; i < orders.count(); ++i) {
+        QStandardItem* checkBoxItem = model->item(i, 0); // Получаем элемент чекбокса
+        if (checkBoxItem && checkBoxItem->checkState() == Qt::Checked) {
+            Order* order = orders[i]; // Получаем текущий заказ
+            order->Accept(visitor); // Экспортируем заказ через посетителя
+            exportedOrders += QString("Заказ %1 экспортирован.\n").arg(order->getOrderId());
+            atLeastOneExported = true;
+        }
+    }
+
+    if (atLeastOneExported) {
+        QMessageBox::information(this, "Экспорт заказов", exportedOrders);
+    } else {
+        QMessageBox::warning(this, "Экспорт заказов", "Нет выбранных заказов для экспорта.");
+    }
+}
+
+

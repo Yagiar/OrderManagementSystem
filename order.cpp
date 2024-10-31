@@ -1,6 +1,6 @@
 #include "order.h"
 #include <QDebug>
-
+#include "Visitor.h"
 
 Order::~Order() {
     delete state;
@@ -108,6 +108,10 @@ bool Order::pay(PaymentSystemAdapter* adapter, double amount) {
     }
     else
         return false;
+}
+
+void Order::Accept(Visitor *visitor){
+    visitor->VisitOrder(this);
 }
 
 // Реализация методов PhysicalOrder

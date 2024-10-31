@@ -382,7 +382,6 @@ public:
             qWarning() << "Error retrieving goods ids:" << query.lastError().text();
             return goodsList; // Возвращаем пустой список в случае ошибки
         }
-
         // Для каждого good_id, получаем информацию о товаре
         while (query.next()) {
             int goodId = query.value(0).toInt();
@@ -410,12 +409,10 @@ public:
                 goodsList.append(good); // Добавляем товар в список
             }
         }
-
         return goodsList; // Возвращаем список товаров
     }
 private:
     QSqlDatabase db;
-
 
     QSqlQuery executeQuery(const QString& queryStr) {
         QSqlQuery query;

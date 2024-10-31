@@ -13,7 +13,6 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QWidget>
@@ -25,7 +24,6 @@ class Ui_OrderListWindow
 public:
     QWidget *centralwidget;
     QTableView *tableView;
-    QMenuBar *menubar;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *OrderListWindow)
@@ -37,12 +35,8 @@ public:
         centralwidget->setObjectName("centralwidget");
         tableView = new QTableView(centralwidget);
         tableView->setObjectName("tableView");
-        tableView->setGeometry(QRect(0, 10, 791, 541));
+        tableView->setGeometry(QRect(0, 30, 791, 521));
         OrderListWindow->setCentralWidget(centralwidget);
-        menubar = new QMenuBar(OrderListWindow);
-        menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 26));
-        OrderListWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(OrderListWindow);
         statusbar->setObjectName("statusbar");
         OrderListWindow->setStatusBar(statusbar);

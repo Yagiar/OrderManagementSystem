@@ -67,7 +67,8 @@ SOURCES       = ../../bagdialog.cpp \
 		../../orderstatehandler.cpp \
 		../../paymentsystemadapter.cpp \
 		../../startWindow.cpp \
-		../../user.cpp qrc_qmake_qmake_qm_files.cpp \
+		../../user.cpp \
+		../../visitor.cpp qrc_qmake_qmake_qm_files.cpp \
 		moc_bagdialog.cpp \
 		moc_changestateform.cpp \
 		moc_createorderdialog.cpp \
@@ -90,6 +91,7 @@ OBJECTS       = bagdialog.o \
 		paymentsystemadapter.o \
 		startWindow.o \
 		user.o \
+		visitor.o \
 		qrc_qmake_qmake_qm_files.o \
 		moc_bagdialog.o \
 		moc_changestateform.o \
@@ -324,7 +326,8 @@ DIST          = /Qt/6.8.0/macos/mkspecs/features/spec_pre.prf \
 		../../orderstatehandler.h \
 		../../paymentsystemadapter.h \
 		../../startWindow.h \
-		../../user.h ../../bagdialog.cpp \
+		../../user.h \
+		../../visitor.h ../../bagdialog.cpp \
 		../../changestateform.cpp \
 		../../createorderdialog.cpp \
 		../../database.cpp \
@@ -339,7 +342,8 @@ DIST          = /Qt/6.8.0/macos/mkspecs/features/spec_pre.prf \
 		../../orderstatehandler.cpp \
 		../../paymentsystemadapter.cpp \
 		../../startWindow.cpp \
-		../../user.cpp
+		../../user.cpp \
+		../../visitor.cpp
 QMAKE_TARGET  = OrderManagementSystem
 DESTDIR       = 
 TARGET        = OrderManagementSystem
@@ -818,8 +822,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../OrderManagementSystem_ru_RU.ts $(DISTDIR)/
 	$(COPY_FILE) --parents qmake_qmake_qm_files.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents ../../bagdialog.h ../../changestateform.h ../../createorderdialog.h ../../database.h ../../factory.h ../../good.h ../../mainwindow.h ../../order.h ../../orderlistwindow.h ../../orderprocessingstrategy.h ../../orderstate.h ../../orderstatehandler.h ../../paymentsystemadapter.h ../../startWindow.h ../../user.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../bagdialog.cpp ../../changestateform.cpp ../../createorderdialog.cpp ../../database.cpp ../../factory.cpp ../../good.cpp ../../main.cpp ../../mainwindow.cpp ../../order.cpp ../../orderlistwindow.cpp ../../orderprocessingstrategy.cpp ../../orderstate.cpp ../../orderstatehandler.cpp ../../paymentsystemadapter.cpp ../../startWindow.cpp ../../user.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../bagdialog.h ../../changestateform.h ../../createorderdialog.h ../../database.h ../../factory.h ../../good.h ../../mainwindow.h ../../order.h ../../orderlistwindow.h ../../orderprocessingstrategy.h ../../orderstate.h ../../orderstatehandler.h ../../paymentsystemadapter.h ../../startWindow.h ../../user.h ../../visitor.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../bagdialog.cpp ../../changestateform.cpp ../../createorderdialog.cpp ../../database.cpp ../../factory.cpp ../../good.cpp ../../main.cpp ../../mainwindow.cpp ../../order.cpp ../../orderlistwindow.cpp ../../orderprocessingstrategy.cpp ../../orderstate.cpp ../../orderstatehandler.cpp ../../paymentsystemadapter.cpp ../../startWindow.cpp ../../user.cpp ../../visitor.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../bagdialog.ui ../../changestateform.ui ../../createorderdialog.ui ../../mainwindow.ui ../../orderlistwindow.ui ../../startWindow.ui $(DISTDIR)/
 	$(COPY_FILE) --parents ../../OrderManagementSystem_ru_RU.ts $(DISTDIR)/
 
@@ -1132,7 +1136,21 @@ order.o: ../../order.cpp ../../order.h \
 		../../orderprocessingstrategy.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qwidget.h \
-		../../PaymentSystemAdapter.h
+		../../PaymentSystemAdapter.h \
+		../../Visitor.h \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QJsonDocument \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qjsondocument.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QJsonObject \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qjsonobject.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QJsonArray \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qjsonarray.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QXmlStreamWriter \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qxmlstream.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QFile \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qfile.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o order.o ../../order.cpp
 
 orderlistwindow.o: ../../orderlistwindow.cpp ../../orderlistwindow.h \
@@ -1179,7 +1197,19 @@ orderlistwindow.o: ../../orderlistwindow.cpp ../../orderlistwindow.h \
 		../../../../Qt/6.8.0/macos/lib/QtGui.framework/Headers/qevent.h \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QCoreApplication \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qcoreapplication.h \
-		../../orderstatehandler.h
+		../../orderstatehandler.h \
+		../../visitor.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QJsonDocument \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qjsondocument.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QJsonObject \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qjsonobject.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QJsonArray \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qjsonarray.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QXmlStreamWriter \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qxmlstream.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QFile \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qfile.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o orderlistwindow.o ../../orderlistwindow.cpp
 
 orderprocessingstrategy.o: ../../orderprocessingstrategy.cpp ../../orderprocessingstrategy.h \
@@ -1261,6 +1291,9 @@ startWindow.o: ../../startWindow.cpp ../../startWindow.h \
 
 user.o: ../../user.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o user.o ../../user.cpp
+
+visitor.o: ../../visitor.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o visitor.o ../../visitor.cpp
 
 qrc_qmake_qmake_qm_files.o: qrc_qmake_qmake_qm_files.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_qmake_qmake_qm_files.o qrc_qmake_qmake_qm_files.cpp

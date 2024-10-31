@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QStandardItemModel>
 #include "order.h"  // Убедитесь, что этот файл правильно определен
+#include <QComboBox>
 
 namespace Ui {
 class OrderListWindow;
@@ -26,6 +27,8 @@ private slots:
     void showOrderGoods(int row); // Добавьте это
     void processOrderForStrategyOnForm(int row);
     void changeStateOnForm(int row);
+    void updateOrderState(int row, const QString& newState);
+    void exportOrdersOnForm();
 
 private:
     Ui::OrderListWindow *ui;
@@ -33,9 +36,9 @@ private:
     QStandardItemModel *model; // Модель для таблицы
     QPushButton *closeButton; // Кнопка закрытия
     QList<Order*> orders; // Список заказов
+    QPushButton *exportOrdersButton;
+    QComboBox *exportVariantComboBox;
     // orderlistwindow.h
-private slots:
-    void updateOrderState(int row, const QString& newState);
 protected:
     void closeEvent(QCloseEvent *event) override;
 };

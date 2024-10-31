@@ -75,5 +75,6 @@ void CreateOrderDialog::on_pushButton_clicked()
             break;
         }
     }
+        delete paymentSystem;
 }
 
