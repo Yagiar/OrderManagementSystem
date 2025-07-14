@@ -43,7 +43,7 @@ public:
     {
         if (startWindow->objectName().isEmpty())
             startWindow->setObjectName("startWindow");
-        startWindow->resize(730, 611);
+        startWindow->resize(730, 640);
         centralwidget = new QWidget(startWindow);
         centralwidget->setObjectName("centralwidget");
         gridLayoutWidget = new QWidget(centralwidget);
@@ -96,7 +96,7 @@ public:
         startWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(startWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 730, 26));
+        menubar->setGeometry(QRect(0, 0, 730, 37));
         startWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(startWindow);
         statusbar->setObjectName("statusbar");

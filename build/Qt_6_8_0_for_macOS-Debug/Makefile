@@ -12,12 +12,12 @@ EQ            = =
 
 ####### Compiler, tools and options
 
-CC            = /Library/Developer/CommandLineTools/usr/bin/clang
-CXX           = /Library/Developer/CommandLineTools/usr/bin/clang++
+CC            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB
-CFLAGS        = -pipe -g $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=12.0 -Wall -Wextra $(DEFINES)
-CXXFLAGS      = -pipe -stdlib=libc++ -g -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=12.0 -Wall -Wextra $(DEFINES)
-INCPATH       = -I../../../OrderManagementSystem -I. -I../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I../../../../Qt/6.8.0/macos/lib/QtGui.framework/Headers -I../../../../Qt/6.8.0/macos/lib/QtSql.framework/Headers -I../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AGL.framework/Headers -I../../../../Qt/6.8.0/macos/mkspecs/macx-clang -F/Users/otrix/Qt/6.8.0/macos/lib
+CFLAGS        = -pipe -g $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=12.0 -Wall -Wextra $(DEFINES)
+CXXFLAGS      = -pipe -stdlib=libc++ -g -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=12.0 -Wall -Wextra $(DEFINES)
+INCPATH       = -I../../../OrderManagementSystem -I. -I../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I../../../../Qt/6.8.0/macos/lib/QtGui.framework/Headers -I../../../../Qt/6.8.0/macos/lib/QtSql.framework/Headers -I../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/AGL.framework/Headers -I../../../../Qt/6.8.0/macos/mkspecs/macx-clang -F/Users/otrix/Qt/6.8.0/macos/lib
 QMAKE         = /Users/otrix/Qt/6.8.0/macos/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,11 +38,11 @@ TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = OrderManagementSystem1.0.0
 DISTDIR = /Users/otrix/code/OrderManagementSystem/build/Qt_6_8_0_for_macOS-Debug/.tmp/OrderManagementSystem1.0.0
-LINK          = /Library/Developer/CommandLineTools/usr/bin/clang++
-LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=12.0 -Wl,-rpath,@executable_path/../Frameworks -Wl,-rpath,/Users/otrix/Qt/6.8.0/macos/lib
+LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
+LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=12.0 -Wl,-rpath,@executable_path/../Frameworks -Wl,-rpath,/Users/otrix/Qt/6.8.0/macos/lib
 LIBS          = $(SUBLIBS) -F/Users/otrix/Qt/6.8.0/macos/lib -L/Users/otrix/lib -framework QtWidgets -framework QtGui -framework AppKit -framework ImageIO -framework Metal -framework QtSql -framework QtCore -framework IOKit -framework DiskArbitration -framework UniformTypeIdentifiers -framework AGL -framework OpenGL   
-AR            = /Library/Developer/CommandLineTools/usr/bin/ar cq
-RANLIB        = /Library/Developer/CommandLineTools/usr/bin/ranlib -s
+AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
+RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
 SED           = sed
 STRIP         = strip
 
@@ -280,7 +280,6 @@ DIST          = /Qt/6.8.0/macos/mkspecs/features/spec_pre.prf \
 		/Qt/6.8.0/macos/mkspecs/features/qt_config.prf \
 		/Qt/6.8.0/macos/mkspecs/macx-clang/qmake.conf \
 		/Qt/6.8.0/macos/mkspecs/features/spec_post.prf \
-		../../.qmake.stash \
 		/Qt/6.8.0/macos/mkspecs/features/exclusive_builds.prf \
 		/Qt/6.8.0/macos/mkspecs/features/mac/sdk.prf \
 		/Qt/6.8.0/macos/mkspecs/features/toolchain.prf \
@@ -350,9 +349,9 @@ TARGET        = OrderManagementSystem
 
 ####### Custom Variables
 EXPORT_QMAKE_MAC_SDK = macosx
-EXPORT_QMAKE_MAC_SDK_VERSION = 15.0
-EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Library/Developer/CommandLineTools
-EXPORT__QMAKE_STASH_ = /Users/otrix/code/OrderManagementSystem/build/Qt_6_8_0_for_macOS-Debug/.qmake.stash
+EXPORT_QMAKE_MAC_SDK_VERSION = 15.2
+EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Applications/Xcode.app/Contents/Developer
+EXPORT__QMAKE_STASH_ = 
 EXPORT_VALID_ARCHS = x86_64 arm64
 EXPORT_DEFAULT_ARCHS = arm64
 EXPORT_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(if $(ARCHS), $(ARCHS), $(if $(EXPORT_DEFAULT_ARCHS), $(EXPORT_DEFAULT_ARCHS), $(EXPORT_VALID_ARCHS))))
@@ -548,7 +547,6 @@ Makefile: ../../OrderManagementSystem.pro ../../../../Qt/6.8.0/macos/mkspecs/fea
 		../../../../Qt/6.8.0/macos/mkspecs/features/qt_config.prf \
 		../../../../Qt/6.8.0/macos/mkspecs/macx-clang/qmake.conf \
 		../../../../Qt/6.8.0/macos/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		../../../../Qt/6.8.0/macos/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt/6.8.0/macos/mkspecs/features/mac/sdk.prf \
 		../../../../Qt/6.8.0/macos/mkspecs/features/toolchain.prf \
@@ -768,7 +766,6 @@ Makefile: ../../OrderManagementSystem.pro ../../../../Qt/6.8.0/macos/mkspecs/fea
 ../../../../Qt/6.8.0/macos/mkspecs/features/qt_config.prf:
 ../../../../Qt/6.8.0/macos/mkspecs/macx-clang/qmake.conf:
 ../../../../Qt/6.8.0/macos/mkspecs/features/spec_post.prf:
-.qmake.stash:
 ../../../../Qt/6.8.0/macos/mkspecs/features/exclusive_builds.prf:
 ../../../../Qt/6.8.0/macos/mkspecs/features/mac/sdk.prf:
 ../../../../Qt/6.8.0/macos/mkspecs/features/toolchain.prf:
@@ -835,7 +832,6 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) $(TARGET) 
-	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -884,7 +880,7 @@ moc_bagdialog.cpp: ../../bagdialog.h \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QString \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qstring.h \
 		../../../../Qt/6.8.0/macos/libexec/moc
-	/Users/otrix/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/otrix/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/otrix/code/OrderManagementSystem -I/Users/otrix/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtSql.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/Users/otrix/Qt/6.8.0/macos/lib ../../bagdialog.h -o moc_bagdialog.cpp
+	/Users/otrix/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/otrix/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/otrix/code/OrderManagementSystem -I/Users/otrix/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtSql.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/otrix/Qt/6.8.0/macos/lib ../../bagdialog.h -o moc_bagdialog.cpp
 
 moc_changestateform.cpp: ../../changestateform.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QDialog \
@@ -896,7 +892,7 @@ moc_changestateform.cpp: ../../changestateform.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QLabel \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qlabel.h \
 		../../../../Qt/6.8.0/macos/libexec/moc
-	/Users/otrix/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/otrix/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/otrix/code/OrderManagementSystem -I/Users/otrix/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtSql.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/Users/otrix/Qt/6.8.0/macos/lib ../../changestateform.h -o moc_changestateform.cpp
+	/Users/otrix/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/otrix/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/otrix/code/OrderManagementSystem -I/Users/otrix/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtSql.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/otrix/Qt/6.8.0/macos/lib ../../changestateform.h -o moc_changestateform.cpp
 
 moc_createorderdialog.cpp: ../../createorderdialog.h \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QList \
@@ -907,7 +903,7 @@ moc_createorderdialog.cpp: ../../createorderdialog.h \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QString \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qstring.h \
 		../../../../Qt/6.8.0/macos/libexec/moc
-	/Users/otrix/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/otrix/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/otrix/code/OrderManagementSystem -I/Users/otrix/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtSql.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/Users/otrix/Qt/6.8.0/macos/lib ../../createorderdialog.h -o moc_createorderdialog.cpp
+	/Users/otrix/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/otrix/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/otrix/code/OrderManagementSystem -I/Users/otrix/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtSql.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/otrix/Qt/6.8.0/macos/lib ../../createorderdialog.h -o moc_createorderdialog.cpp
 
 moc_mainwindow.cpp: ../../mainwindow.h \
 		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QList \
@@ -920,7 +916,7 @@ moc_mainwindow.cpp: ../../mainwindow.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QGridLayout \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qgridlayout.h \
 		../../../../Qt/6.8.0/macos/libexec/moc
-	/Users/otrix/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/otrix/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/otrix/code/OrderManagementSystem -I/Users/otrix/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtSql.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/Users/otrix/Qt/6.8.0/macos/lib ../../mainwindow.h -o moc_mainwindow.cpp
+	/Users/otrix/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/otrix/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/otrix/code/OrderManagementSystem -I/Users/otrix/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtSql.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/otrix/Qt/6.8.0/macos/lib ../../mainwindow.h -o moc_mainwindow.cpp
 
 moc_orderlistwindow.cpp: ../../orderlistwindow.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QMainWindow \
@@ -945,14 +941,16 @@ moc_orderlistwindow.cpp: ../../orderlistwindow.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qwidget.h \
 		../../PaymentSystemAdapter.h \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QComboBox \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qcombobox.h \
 		../../../../Qt/6.8.0/macos/libexec/moc
-	/Users/otrix/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/otrix/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/otrix/code/OrderManagementSystem -I/Users/otrix/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtSql.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/Users/otrix/Qt/6.8.0/macos/lib ../../orderlistwindow.h -o moc_orderlistwindow.cpp
+	/Users/otrix/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/otrix/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/otrix/code/OrderManagementSystem -I/Users/otrix/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtSql.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/otrix/Qt/6.8.0/macos/lib ../../orderlistwindow.h -o moc_orderlistwindow.cpp
 
 moc_startWindow.cpp: ../../startWindow.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../../../../Qt/6.8.0/macos/libexec/moc
-	/Users/otrix/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/otrix/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/otrix/code/OrderManagementSystem -I/Users/otrix/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtSql.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/Users/otrix/Qt/6.8.0/macos/lib ../../startWindow.h -o moc_startWindow.cpp
+	/Users/otrix/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/otrix/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/otrix/code/OrderManagementSystem -I/Users/otrix/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtSql.framework/Headers -I/Users/otrix/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/otrix/Qt/6.8.0/macos/lib ../../startWindow.h -o moc_startWindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1176,6 +1174,8 @@ orderlistwindow.o: ../../orderlistwindow.cpp ../../orderlistwindow.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qwidget.h \
 		../../PaymentSystemAdapter.h \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QComboBox \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qcombobox.h \
 		ui_orderlistwindow.h \
 		../../database.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QMessageBox \
@@ -1189,8 +1189,6 @@ orderlistwindow.o: ../../orderlistwindow.cpp ../../orderlistwindow.h \
 		../../changestateform.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QDialog \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qdialog.h \
-		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QComboBox \
-		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qcombobox.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QLabel \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qlabel.h \
 		../../../../Qt/6.8.0/macos/lib/QtGui.framework/Headers/QCloseEvent \
@@ -1286,13 +1284,42 @@ startWindow.o: ../../startWindow.cpp ../../startWindow.h \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QPushButton \
 		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		../../../../Qt/6.8.0/macos/lib/QtGui.framework/Headers/QStandardItemModel \
-		../../../../Qt/6.8.0/macos/lib/QtGui.framework/Headers/qstandarditemmodel.h
+		../../../../Qt/6.8.0/macos/lib/QtGui.framework/Headers/qstandarditemmodel.h \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QComboBox \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qcombobox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o startWindow.o ../../startWindow.cpp
 
 user.o: ../../user.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o user.o ../../user.cpp
 
-visitor.o: ../../visitor.cpp 
+visitor.o: ../../visitor.cpp ../../visitor.h \
+		../../order.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QString \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qstring.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QList \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qlist.h \
+		../../orderstate.h \
+		../../good.h \
+		../../paymentsystemadapter.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QDebug \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qdebug.h \
+		../../orderprocessingstrategy.h \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QWidget \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../PaymentSystemAdapter.h \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QJsonDocument \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qjsondocument.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QJsonObject \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qjsonobject.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QJsonArray \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qjsonarray.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QXmlStreamWriter \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qxmlstream.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/QFile \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qfile.h \
+		../../../../Qt/6.8.0/macos/lib/QtCore.framework/Headers/qDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o visitor.o ../../visitor.cpp
 
 qrc_qmake_qmake_qm_files.o: qrc_qmake_qmake_qm_files.cpp 
